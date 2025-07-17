@@ -10,7 +10,7 @@ As part of the Data Science Certificate program at the University of Toronto’s
 * Reshma Rajendran (\[github\_user\]())  
 * Ghazaleh Ahmadzadeh ([Ghazaleh-Ahmadzadeh](https://github.com/Ghazaleh-Ahmadzadeh))  
 * Melanie ([melcsk](https://github.com/melcsk))  
-* Elizabeta Radaeva (\[github\_user\]())  
+* Elizabeta Radaeva (\[eradaeva1](https://github.com/eradaeva1))  
 * Cristian Cordova ([NicoForce](https://github.com/NicoForce))
 
 ## Business Motivation
