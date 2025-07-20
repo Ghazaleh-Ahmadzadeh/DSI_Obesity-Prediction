@@ -18,7 +18,7 @@ This project focuses on an in-depth analysis of the “Estimation of Obesity Lev
 ## Team Members
 
 * Maria Rossano ([rossanot](https://github.com/rossanot))  
-* Reshma Rajendran (\[github\_user\]())  
+* Reshma Rajendran ([EzhavaReshma](https://github.com/EzhavaReshma)  
 * Ghazaleh Ahmadzadeh ([Ghazaleh-Ahmadzadeh](https://github.com/Ghazaleh-Ahmadzadeh))  
 * Melanie Cheung See Kit ([melcsk](https://github.com/melcsk))  
 * Elizabeta Radaeva ([eradaeva1](https://github.com/eradaeva1))  
