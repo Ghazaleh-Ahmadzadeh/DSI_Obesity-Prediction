@@ -14,6 +14,7 @@ This project focuses on an in-depth analysis of the “Estimation of Obesity Lev
 * [Key Findings](#key-findings)
 * [Conclusion](#conclusion)
 * [Folder Structure](#folder-structure)
+* [How-to use this repo](#how-to)
   
 ## Team Members
 
@@ -32,9 +33,14 @@ Fig 1. % of Adults with obesity (BMI  ≥ 30kg/m2) across selected countries (Da
 
 In this context, developing preventative measures to address obesity must be considered paramount. As a result, people’s quality of life would improve, thereby relieving the strain on the healthcare system, especially for countries where some form of universal health coverage is provided by the government. For example, in Colombia, about 19% of government spending was directed towards healthcare, representing approximately 6.6% of Colombia’s Gross Domestic Product (GDP) in 2021. ([Health in the Americas, Pan American Health Organization: Colombia Profile](https://hia.paho.org/en/country-profiles/colombia))
 
+
+### Business Motivation
 Here, we propose to determine the features that have the most meaningful impact on their obesity status. These factors range from an individual’s medical history, dietary and health habits to fitness activity. We aim to achieve this goal by training a machine learning model within the context of a classification problem. By identifying the dietary and lifestyle factors influencing obesity in individuals, healthcare providers could help improve tailored solutions for patients that could be translated into a higher treatment success rate. 
 
-**Dataset Details**
+- **Client**: Goverment within a context of B2G scheme
+- **End User**: Health providers, e.g., hospitals and physicians
+
+### **Dataset Details**
 * Source: [UC Irvine Machine Learning Repository](https://archive.ics.uci.edu/dataset/544/estimation+of+obesity+levels+based+on+eating+habits+and+physical+condition) 
 * Sample size: 2111
 * Features: 16
@@ -64,10 +70,6 @@ Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obe
 Note that for this dataset, authors generated 77% of the data synthetically using Weka tool and SMOTE filter while 23% was collected directly from participants via a web platform.
 
 ## Objectives
-### Business Motivation
-- **Client**: Goverment within a context of B2G scheme
-- **End User**: Health providers, e.g., hospitals and physicians
-- ****
 
 ## Methodology
 
@@ -100,3 +102,9 @@ Note that for this dataset, authors generated 77% of the data synthetically usin
 - **models**: Contains files for model training and testing, as well as the finalized model
 - **notebooks**: pre-implemented pipelines
 - **README.md**: This file
+
+## How-to use this repo
+It is recommended to create a dedicated environment for this repo
+
+``conda env create -f environment.yml
+``
