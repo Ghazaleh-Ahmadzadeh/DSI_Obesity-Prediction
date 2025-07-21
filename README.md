@@ -65,15 +65,9 @@ Note that for this dataset, authors generated 77% of the data synthetically usin
 
 ## Objectives
 ### Business Motivation
-* Stakeholders: Insurance companies  
-  - Identify predisposition for complications related to obesity in order to accurately calculate insurance premiums to charge to customer
-
-* Stakeholders: Pharmaceutical company market pitch for GLP-1 agonists (e.g. Wegovy, Ozempic, etc …)
-  - Identify emerging markets where need for anti-obesity drugs are currently unmet
- 
-* Stakeholder: Company marketing health tracker app
-  - Connect with personal health tracker app to predict possible complications from current diet and fitness information
-
+- **Client**: Goverment within a context of B2G scheme
+- **End User**: Health providers, e.g., hospitals and physicians
+- ****
 
 ## Methodology
 
@@ -82,13 +76,27 @@ Note that for this dataset, authors generated 77% of the data synthetically usin
 ## Conclusion
 
 ## Folder Structure
-```markdown
+
+```bash
 .
-├── data
-├── models
-└── README.md
+├───data
+│   ├───eda
+│   ├───preprocessed
+│   └───raw
+├───docs
+│   └───figures
+├───experiments
+├───models
+├───notebooks
+├───README.md
 ```
 
- * **data**: Contains raw and processed datasets.
- * **models**: Contains files for model testing and finalized model.
- * **README.md**: This file.
+- **data**: Contains raw and processed datasets
+  - **eda**: EDA pipeline
+  - **preprocessed**: preprocessed datasets
+  - **raw**: source raw data
+- **docs**: figures and tool files
+ - **figures**: documentation figures and plots
+- **models**: Contains files for model training and testing, as well as the finalized model
+- **notebooks**: pre-implemented pipelines
+- **README.md**: This file
