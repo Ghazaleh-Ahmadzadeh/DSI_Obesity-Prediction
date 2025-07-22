@@ -23,7 +23,7 @@ This project focuses on an in-depth analysis of the “Estimation of Obesity Lev
 * Ghazaleh Ahmadzadeh ([Ghazaleh-Ahmadzadeh](https://github.com/Ghazaleh-Ahmadzadeh))  
 * Melanie Cheung See Kit ([melcsk](https://github.com/melcsk))  
 * Elizabeta Radaeva ([eradaeva1](https://github.com/eradaeva1))  
-* Cristian Cordova ([NicoForce](https://github.com/NicoForce))
+* Cristian Nicolas Cordova Puglianini ([NicoForce](https://github.com/NicoForce))
 
 ## Introduction
 Obesity is a diagnosis given to individuals with excessive body fat and calculated Body Mass Index (BMI) of greater or equal to 30kg/m<sup>2</sup>. It often becomes a long-term and chronic health condition that is associated with increased risks of other complications, such as type 2 diabetes, heart disease, and cancer. Thus, patients’ treatments have become a heavy burden to the healthcare system. In the Americas region, obesity is a prevalent condition among adults (Fig. 1) and is estimated to cost 985.99 billion USD, mostly in medical expenses ([Okunogbe et al., 2022, e009773](https://pubmed.ncbi.nlm.nih.gov/36130777/)). 
