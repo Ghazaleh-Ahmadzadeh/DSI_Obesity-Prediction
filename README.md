@@ -73,6 +73,17 @@ Note that for this dataset, authors generated 77% of the data synthetically usin
 ## **Objectives**
 
 ## **Methodology**
+Exploratory data analysis (EDA), data preprocessing and model training experiment outputs are stored in the `data` folder using the corresponding timestamp of the experiment execution time.
+
+In all cases, Jupyter notebooks were used to test code before implementing it into the final pipeline. 
+
+About project management and versioning using Git/GitHub. 
+- The team held regular virtual stand ups to discuss the project objectives, progress, concerns, and . 
+- A google docs document was employed to keep track of the project progress, references and other documentation, model experiments planning, team ideation/brain stormming, meetings agenda and outcomes
+- At least two team members were assigned to reviewing each pull request (PR) 
+- The team member to open the PR was not necesarilly the person to close it
+- 
+
 ### **Data extraction**
 ### **EDA**
 ### **Data preprocessing**
@@ -96,17 +107,20 @@ Note that for this dataset, authors generated 77% of the data synthetically usin
 ├───docs
 │   └───figures
 ├───experiments
+├───eda
+│   └───eda.py
 ├───models
 ├───notebooks
 ├───README.md
 ```
 
 - **data**: Contains raw and processed datasets
-  - **eda**: EDA pipeline
+  - **eda**: EDA pipeline outputs, including a report and plots
   - **preprocessed**: preprocessed datasets
   - **raw**: source raw data
 - **docs**: figures and tool files
  - **figures**: documentation figures and plots
+- **eda**: EDA pipeline
 - **models**: Contains files for model training and testing, as well as the finalized model
 - **notebooks**: pre-implemented pipelines
 - **README.md**: This file
