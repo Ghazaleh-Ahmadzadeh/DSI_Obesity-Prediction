@@ -93,7 +93,7 @@ param_grid_opt = {
 }
 
 # OptunaSearchCV with 'accuracy' as the scoring metric
-opt_svc = OptunaSearchCV(pipe_svc, param_grid_opt, n_trials = 20,
+opt_svc = OptunaSearchCV(pipe_svc, param_grid_opt, n_trials = 500,
                          cv = 5, scoring = 'accuracy', n_jobs = -1,
                          verbose = 1)
 
@@ -171,7 +171,7 @@ param_grid_opt_mic = {
 }
 
 # OptunaSearchCV with 'accuracy' as the scoring metric
-opt_mic = OptunaSearchCV(pipe_svc, param_grid_opt_mic, n_trials = 20,
+opt_mic = OptunaSearchCV(pipe_svc, param_grid_opt_mic, n_trials = 500,
                          cv = 5, scoring = 'accuracy', n_jobs = -1,
                          verbose = 1)
 
@@ -218,7 +218,7 @@ params_opt_kbest = {
     }
 
 opt_kbest = OptunaSearchCV(pipe_opt_kbest, params_opt_kbest, 
-                           n_trials = 20, cv = 5, n_jobs = -1, 
+                           n_trials = 500, cv = 5, n_jobs = -1, 
                            verbose = 2)
 opt_kbest.fit(X_train, y_train_reshaped)
 
