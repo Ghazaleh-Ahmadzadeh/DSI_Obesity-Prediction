@@ -1,4 +1,4 @@
-# Classifying Obesity Levels Using Dietary and Lifestyle Information from Individuals in Colombia, Peru, and Mexico
+# **Classifying Obesity Levels Using Dietary and Lifestyle Information from Individuals in Colombia, Peru, and Mexico**
 
 Data Science/ Machine Learning Software Foundations Certificate Program, Data Sciences Institute, University of Toronto
 
@@ -6,7 +6,7 @@ Cohort 6 - Team ML #6 Project
 
 This project focuses on an in-depth analysis of the “Estimation of Obesity Levels Based on Eating Habits and Physical Condition” dataset using Machine Learning models to determine which dietary and lifestyle attributes the most significant predictors of obesity levels. Our proposal outlines the development of the "Compass Proactive Health Platform" to identify individuals at risk of developing severe obesity, thereby enabling targeted preventative measures to reduce associated medical healthcare costs.
 
-## Contents
+## **Contents**
 * [Team Members](#team-members)
 * [Introduction](#introduction)
 * [Objectives](#objectives)
@@ -16,7 +16,7 @@ This project focuses on an in-depth analysis of the “Estimation of Obesity Lev
 * [Folder Structure](#folder-structure)
 * [How-to use this repo](#how-to)
   
-## Team Members
+## **Team Members**
 
 * Maria Rossano ([rossanot](https://github.com/rossanot))  
 * Reshma Rajendran ([EzhavaReshma](https://github.com/EzhavaReshma))
@@ -25,7 +25,7 @@ This project focuses on an in-depth analysis of the “Estimation of Obesity Lev
 * Elizabeta Radaeva ([eradaeva1](https://github.com/eradaeva1))  
 * Cristian Nicolas Cordova Puglianini ([NicoForce](https://github.com/NicoForce))
 
-## Introduction
+## **Introduction**
 Obesity is a diagnosis given to individuals with excessive body fat and calculated Body Mass Index (BMI) of greater or equal to 30kg/m<sup>2</sup>. It often becomes a long-term and chronic health condition that is associated with increased risks of other complications, such as type 2 diabetes, heart disease, and cancer. Thus, patients’ treatments have become a heavy burden to the healthcare system. In the Americas region, obesity is a prevalent condition among adults (Fig. 1) and is estimated to cost 985.99 billion USD, mostly in medical expenses ([Okunogbe et al., 2022, e009773](https://pubmed.ncbi.nlm.nih.gov/36130777/)). 
 
 ![Fig1](docs/figures/fig1-obesity.png)
@@ -33,7 +33,7 @@ Fig 1. % of Adults with obesity (BMI  ≥ 30kg/m2) across selected countries (Da
 
 In this context, developing preventative measures to address obesity must be considered paramount. As a result, people’s quality of life would improve, thereby relieving the strain on the healthcare system, especially for countries where some form of universal health coverage is provided by the government. For example, in Colombia, about 19% of government spending was directed towards healthcare, representing approximately 6.6% of Colombia’s Gross Domestic Product (GDP) in 2021. ([Health in the Americas, Pan American Health Organization: Colombia Profile](https://hia.paho.org/en/country-profiles/colombia))
 
-### Business Motivation
+### **Business Motivation**
 Here, we propose to determine the features that have the most meaningful impact on their obesity status. These factors range from an individual’s medical history, dietary and health habits to fitness activity. We aim to achieve this goal by training a machine learning model within the context of a classification problem. By identifying the dietary and lifestyle factors influencing obesity in individuals, healthcare providers could help improve tailored solutions for patients that could be translated into a higher treatment success rate. 
 
 - **Client**: Goverment within a context of B2G scheme
@@ -70,22 +70,22 @@ Note that for this dataset, authors generated 77% of the data synthetically usin
 
 #### **SMOTE**
 
-## Objectives
+## **Objectives**
 
-## Methodology
-### Data extraction
-### EDA
-### Data preprocessing
-### Model training
-### Model validation
-### Feature analysis
-### Dashboard for model consumption
+## **Methodology**
+### **Data extraction**
+### **EDA**
+### **Data preprocessing**
+### **Model training**
+### **Model validation**
+### **Feature analysis**
+### **Dashboard for model consumption**
 
-## Key Findings
+## **Key Findings**
 
-## Conclusion
+## **Conclusion**
 
-## Folder Structure
+## **Folder Structure**
 
 ```bash
 .
@@ -111,8 +111,33 @@ Note that for this dataset, authors generated 77% of the data synthetically usin
 - **notebooks**: pre-implemented pipelines
 - **README.md**: This file
 
-## How-to use this repo
-It is recommended to create a dedicated environment for this repo
+## **How to use this repo**
+It is recommended to create a dedicated environment for this repo,
 
-``conda env create -f environment.yml
-``
+```bash
+conda env create -f environment.yml
+```
+
+If not installed,
+
+```bash
+pip install -r requirements.txt
+```
+
+Each component of the pipeline, for example data processing and model training, can be run using the `run.sh` file found in the project main directory as shown below.
+
+- EDA:
+
+```bash
+bash run.sh eda
+```
+
+- Data processing
+
+```bash
+bash run.sh preproc
+```
+
+- Model training
+- Model validation
+- Dashboard
