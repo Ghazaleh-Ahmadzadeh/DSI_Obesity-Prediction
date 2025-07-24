@@ -10,3 +10,9 @@ if [[ $1 == "eda" ]]; then
     echo "Running EDA"
     python ./eda/eda.py
 fi
+
+# Run data preprocessing
+if [[ $1 == "preproc" ]]; then
+    echo "Running Data Preprocessing"
+    python ./data-preprocessing/data-preprocessing.py
+fi
