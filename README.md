@@ -109,9 +109,25 @@ For the above we employed measures of central tendency, as well as a series of h
 The EDA pipeline outputs, a report in .txt format and plots in .png format, are stored in the [data/eda](./data/eda/) folder.
 
 ### **c. Data preprocessing**
-To prevent bias during model training, the features `weight` and `height` were scaled using the minmax scaler, within the range (1, 5), as implemented in scikit-learn to match the ranges of the rest of the numerical features.
+The raw dataset was systematically preprocessed to prepare it for machine learning. The pipeline was designed to handle different feature types, prevent data leakage, and ensure the data was in an optimal format for our classification models.
 
-Categorical variables , `Gender`, `family_history_with_overweight`, `FAVC`, `CAEC`, `SMOKE`, `SCC`, `CALC`, `MTRANS`, including the target `NObeyesdad` were encoded accordingly. 
+1. Feature Engineering
+To better capture the relationship between age and obesity, the numerical Age column was transformed into a categorical feature. We created four distinct age groups: 'Adolescent' (0-18), 'Young Adult' (18-35), 'Adult' (35-55), and 'Senior' (55+). This helps the model interpret age as distinct life stages rather than a continuous value.
+
+2. Encoding of Categorical Variables
+Categorical features were encoded based on their specific type to convert them into a machine-readable format:
+
+Ordinal Features: For features with a clear, inherent order, such as CAEC (Consumption of food between meals) and CALC (Consumption of alcohol), a manual mapping was applied (e.g., 'no' -> 0, 'Sometimes' -> 1). This preserves the valuable ordinal relationship in the data.
+
+Nominal Features: For features without any inherent order, one-hot encoding was used. This included columns like Gender and MTRANS (Transportation). This method creates new binary columns for each category, preventing the model from assuming a false ranking between them.
+
+Target Variable: The target variable, NObeyesdad, was converted from text labels (e.g., 'Normal_Weight', 'Obesity_Type_I') into numerical labels (0, 1, 2, etc.) using scikit-learn's LabelEncoder.
+
+3. Train-Test Split and Preventing Data Leakage
+To ensure our model's performance is evaluated accurately on unseen data, the dataset was split into a training set (80%) and a testing set (20%). Crucially, this split was performed before applying feature scaling. This is a critical step to prevent data leakage, where information from the test set could inadvertently influence the training process.
+
+4. Feature Scaling
+The numerical features, including Age, Height, Weight, and the ordinally encoded columns, were normalized using scikit-learn's MinMaxScaler. This scaler transforms each feature to a given range, which we set to (1, 5). This ensures that all numerical features are on a consistent scale, which can improve the performance and convergence of many machine learning algorithms. The scaler was fitted only on the training data and then used to transform both the training and testing sets.
 
 ### **d. Model training**
 Team members tried different models and tools, see Table 2. 
