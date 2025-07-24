@@ -1,9 +1,13 @@
+import os
+import joblib
+from typing import Tuple
+from datetime import datetime
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 from sklearn.model_selection import train_test_split
-import os
-from datetime import datetime
 
+# Set a random state for reproducibility
+# Set to None during production runs
 random_state = 42  # or None
 
 def encode_ordinal(
@@ -91,7 +95,7 @@ def drop_features(
 
 def split_data(
         df: pd.DataFrame
-        ) -> tuple:
+        ) -> Tuple:
     """Split Data into Training and Testing Sets
     :param df: DataFrame containing the dataset
     :return: Tuple containing features (X) and target (y)
@@ -138,7 +142,7 @@ def scale_data(
     X_train_scaled[numerical_features] = scaler.transform(X_train_scaled[numerical_features])
     X_test_scaled[numerical_features] = scaler.transform(X_test_scaled[numerical_features])
 
-    return X_train_scaled, X_test_scaled
+    return {'data': (X_train_scaled, X_test_scaled), 'scaler': scaler}
 
 
 
@@ -185,7 +189,9 @@ def main():
     print("\nSaved unscaled training and testing sets.")
 
     # Apply Scaling
-    X_train_scaled, X_test_scaled = scale_data(X_train, X_test)
+    _scaling_dict = scale_data(X_train, X_test)
+    X_train_scaled, X_test_scaled = _scaling_dict['data']
+    scaler = _scaling_dict['scaler']
     print("Scaling applied successfully.")
 
 
@@ -195,6 +201,12 @@ def main():
     y_test.to_csv(os.path.join(output_dir, 'y_test_scaled.csv'), index=False)
     print("Saved final scaled training and testing sets.")
     print(f"\nAll files saved in: {output_dir}")
+
+    # Save the scaler for future use
+    scaler_path = os.path.join(output_dir, 'scaler.pkl')
+    joblib.dump(scaler, scaler_path)
+    print(f"Saved scaler to: {scaler_path}")
+
 
 if __name__ == "__main__":
     main()
