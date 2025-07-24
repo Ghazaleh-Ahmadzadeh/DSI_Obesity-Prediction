@@ -66,9 +66,12 @@ Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obe
 | CALC | Categorical | How often do you drink alcohol?|
 | MTRANS | Categorical | Which transportation do you usually use? |
 
-Note that for this dataset, authors generated 77% of the data synthetically using Weka tool and SMOTE filter while 23% was collected directly from participants via a web platform.
+From exploratory data analysis we found that
+
+
 
 #### **SMOTE**
+Note that for this dataset, authors generated 77% of the data synthetically using Weka tool and SMOTE filter while 23% was collected directly from participants via a web platform.
 
 ## **Objectives**
 
