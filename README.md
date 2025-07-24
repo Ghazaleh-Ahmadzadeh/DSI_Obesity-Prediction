@@ -2,7 +2,7 @@
 
 Data Science/ Machine Learning Software Foundations Certificate Program, Data Sciences Institute, University of Toronto
 
-Cohort 6 - Team ML #6 Project
+Cohort 6 - Team ML #6
 
 This project focuses on an in-depth analysis of the “Estimation of Obesity Levels Based on Eating Habits and Physical Condition” dataset using Machine Learning models to determine which dietary and lifestyle attributes the most significant predictors of obesity levels. Our proposal outlines the development of the "Compass Proactive Health Platform" to identify individuals at risk of developing severe obesity, thereby enabling targeted preventative measures to reduce associated medical healthcare costs.
 
@@ -66,9 +66,16 @@ Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obe
 | CALC | Categorical | How often do you drink alcohol?|
 | MTRANS | Categorical | Which transportation do you usually use? |
 
-From exploratory data analysis we found that
+From exploratory data analysis, it was found that the target classes are not heavely imbalanced (see [Figure 2](#fig2)), as a result, no bias is expected from this component of the data.
+
+![Fig2](docs/figures/fig2-target-classes.png)
+Fig 2. Distribution of classes of the target
 
 
+The linear correlation between the various numerical features in the dataset was evaluated showing that no strong dependency between features existed (see [Figure 3](#fig3)). 
+
+![Fig3](docs/figures/fig3-corr.png)
+Fig 3. Linear correlation between numerical features
 
 #### **SMOTE**
 Note that for this dataset, authors generated 77% of the data synthetically using Weka tool and SMOTE filter while 23% was collected directly from participants via a web platform.
@@ -112,7 +119,7 @@ Team members tried different models and tools, see Table 2.
 | **Team member** | **Maria** | **Melanie** | **Ghazaleh** | **Cristian** |
 |---|---|---|---|---|
 | **Algorithm** | Random Forest Classifier | Random Forest Classifier |     [LightGBM](https://lightgbm.readthedocs.io/en/stable/) Classifier |     XGBClassifier |
-| **Best parameters** | Parameters: {'criterion':   'entropy', 'max_depth': 15, 'n_estimators': 68} | Parameters: {'max_depth': 21,   'n_estimators': 450} | Parameters: {'learning_rate':   0.05, 'max_depth': 7, 'n_estimators': 350, 'num_leaves': 20} | Best parameters:   {'classifier__learning_rate': 0.05, 'classifier__max_depth': 5,   'classifier__n_estimators': 325, 'classifier__subsample': 1.0} |
+| **Best parameters** | `{'criterion':   'entropy', 'max_depth': 15, 'n_estimators': 68}` | `{'max_depth': 21,   'n_estimators': 450}` | `{'learning_rate':   0.05, 'max_depth': 7, 'n_estimators': 350, 'num_leaves': 20}` | `{'classifier__learning_rate': 0.05, 'classifier__max_depth': 5,   'classifier__n_estimators': 325, 'classifier__subsample': 1.0}` |
 | **Hyperparameter optimization   method** | [Optuna](https://optuna.org/) | [GridSearchCV](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html) | GridSearchCV | GridSearchCV |
 | **CV** | Yes | Yes | Yes | Yes |
 | **Other** | Feature selection using   `mutual_info_classif` |  |  |  |
