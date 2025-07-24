@@ -29,14 +29,14 @@ This project focuses on an in-depth analysis of the “Estimation of Obesity Lev
 Obesity is a diagnosis given to individuals with excessive body fat and calculated Body Mass Index (BMI) of greater or equal to 30kg/m<sup>2</sup>. It often becomes a long-term and chronic health condition that is associated with increased risks of other complications, such as type 2 diabetes, heart disease, and cancer. Thus, patients’ treatments have become a heavy burden to the healthcare system. In the Americas region, obesity is a prevalent condition among adults (Fig. 1) and is estimated to cost 985.99 billion USD, mostly in medical expenses ([Okunogbe et al., 2022, e009773](https://pubmed.ncbi.nlm.nih.gov/36130777/)). 
 
 ![Fig1](docs/figures/fig1-obesity.png)
-Fig 1. % of Adults with obesity (BMI  ≥ 30kg/m2) across selected countries (Data Tables | World Obesity Federation Global Obesity Observatory, 2025).
+Fig 1. Percentage of Adults with obesity (BMI  ≥ 30kg/m<sup>2</sup>) across selected countries (Data Tables | World Obesity Federation Global Obesity Observatory, 2025).
 
 In this context, developing preventative measures to address obesity must be considered paramount. As a result, people’s quality of life would improve, thereby relieving the strain on the healthcare system, especially for countries where some form of universal health coverage is provided by the government. For example, in Colombia, about 19% of government spending was directed towards healthcare, representing approximately 6.6% of Colombia’s Gross Domestic Product (GDP) in 2021. ([Health in the Americas, Pan American Health Organization: Colombia Profile](https://hia.paho.org/en/country-profiles/colombia))
 
 ### **Business Motivation**
 Here, we propose to determine the features that have the most meaningful impact on their obesity status. These factors range from an individual’s medical history, dietary and health habits to fitness activity. We aim to achieve this goal by training a machine learning model within the context of a classification problem. By identifying the dietary and lifestyle factors influencing obesity in individuals, healthcare providers could help improve tailored solutions for patients that could be translated into a higher treatment success rate. 
 
-- **Client**: Goverment within a context of B2G scheme
+- **Client**: Goverment within a context of Business-to-Government (B2G) scheme
 - **End User**: Health providers, e.g., hospitals and physicians
 
 ### **Dataset Details**
@@ -47,6 +47,7 @@ Here, we propose to determine the features that have the most meaningful impact 
 * Target labels:
 Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obesity Type I, Obesity Type II, and Obesity Type III
 
+**Table 1. Feature Description**
 | Feature Name        | Type | Description |
 | ----------------- | ------ | ----------------- |
 | Gender      | Categorical      |               |
@@ -88,13 +89,13 @@ Exploratory data analysis (EDA), data preprocessing and model training experimen
 In all cases, Jupyter notebooks were used to test code before implementing it into the final pipeline. 
 
 ### About project management 
-- The team held regular virtual stand ups to discuss the project objectives, progress, concerns, and . 
+- The team held regular virtual stand ups to discuss the project objectives, planning, progress, and address any blockers. 
 - A google docs document was employed to keep track of the project progress, references and other documentation, model experiments planning, team ideation/brain stormming, meetings agenda and outcomes
 
 ### About project versioning using Git/GitHub
 - Team members open and merged at least one pull request (PR) 
 - At least two team members were assigned to reviewing each PR
-- The team member to open the PR was not necesarilly the person to close it
+- The team member to open the PR was not necessarily the person to close it
 - Branches were <ins>deleted</ins> after revision and merging were completed
 
 ### **a. Data extraction**
@@ -110,7 +111,7 @@ The EDA pipeline outputs, a report in .txt format and plots in .png format, are 
 ### **c. Data preprocessing**
 To prevent bias during model training, the features `weight` and `height` were scaled using the minmax scaler, within the range (1, 5), as implemented in scikit-learn to match the ranges of the rest of the numerical features.
 
-Categorical variables , `Gender`, `family_history_with_overweight`, `FAVC`, `CAEC`, `SMOKE`, `SCC`, `CALC`, `MTRANS`, including the target `NObeyesdad` where encoded accordingly. 
+Categorical variables , `Gender`, `family_history_with_overweight`, `FAVC`, `CAEC`, `SMOKE`, `SCC`, `CALC`, `MTRANS`, including the target `NObeyesdad` were encoded accordingly. 
 
 ### **d. Model training**
 Team members tried different models and tools, see Table 2. 
@@ -126,9 +127,26 @@ Team members tried different models and tools, see Table 2.
 | **Performance** | CV Accuracy: 0.947 | Train Accuracy: 0.953  | Train Accuracy: 1.0 | Train Accuracy: 0.972 |
 |  | Test Accuracy: 0.950 | Test Accuracy: 0.939 | Test Accuracy: 0.969 | Test Accuracy: 0.967    |
 
+### **e. Model validation**
 For the final implementation, the best performing models from [Table 2](#table-2-experiments-model-details) were chosen, using Optuna for hyperparameter optimization, cross-validation, and feature selection. In addition, a baseline using a decision tree with default parameters was included. 
 
-### **e. Model validation**
+#### **Table 3.** Baseline Model Experimental Details
+| **Algorithm** | [Random Forest Classifier](https://scikit-learn.org/stable/modules/ensemble.html#forest) | |
+|---|---|---|
+| **Dataset** | Baseline   | Scaled |
+| **Train Accuracy** | 1.000 | 1.000 |
+| **Test Accuracy** | 0.905 | 0.915 |
+
+During model validation, [Support Vector Classifier](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html) (SVC) and [Light Gradient-Boosting Machine (LightGBM) Classifier](https://lightgbm.readthedocs.io/en/stable/) were compared, using Optuna and cross-validation during hyperparameter optimization.
+
+#### **Table 4.** Model Validation Experimental Details
+| **Algorithm** | SVC | SVC | LightGBM | LightGBM |
+|---|---|---|---|---|
+| **Best parameters** | `{'svc__C': 4, 'svc__kernel': 'poly', 'svc__gamma': 'auto'}` | `{'select__k': 8, 'svc__C': 6, 'svc__kernel': 'poly', 'svc__gamma': 'scale'}` | | |
+| **Other** | | feature selection `SelectKBest` 'Height', 'Weight', 'family_history_with_overweight', 'FAVC', 'FCVC', 'CAEC', 'CALC', 'Gender_Male') | | |
+| **Train Accuracy** | 0.998 | 0.983 | | |
+| **Test Accuracy** | 0.967 | 0.962 | | |
+
 ### **f. Feature analysis**
 ### **g. Dashboard for model showcase**
 
