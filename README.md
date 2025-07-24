@@ -14,7 +14,7 @@ This project focuses on an in-depth analysis of the “Estimation of Obesity Lev
 * [Key Findings](#key-findings)
 * [Conclusion](#conclusion)
 * [Folder Structure](#folder-structure)
-* [How-to use this repo](#how-to)
+* [How to use this repo](#how-to-use-this-repo)
   
 ## **Team Members**
 
@@ -77,22 +77,59 @@ Exploratory data analysis (EDA), data preprocessing and model training experimen
 
 In all cases, Jupyter notebooks were used to test code before implementing it into the final pipeline. 
 
-About project management and versioning using Git/GitHub. 
+### About project management 
 - The team held regular virtual stand ups to discuss the project objectives, progress, concerns, and . 
 - A google docs document was employed to keep track of the project progress, references and other documentation, model experiments planning, team ideation/brain stormming, meetings agenda and outcomes
-- At least two team members were assigned to reviewing each pull request (PR) 
-- The team member to open the PR was not necesarilly the person to close it
-- 
 
-### **Data extraction**
-### **EDA**
-### **Data preprocessing**
-### **Model training**
-### **Model validation**
-### **Feature analysis**
-### **Dashboard for model consumption**
+### About project versioning using Git/GitHub
+- Team members open and merged at least one pull request (PR) 
+- At least two team members were assigned to reviewing each PR
+- The team member to open the PR was not necesarilly the person to close it
+- Branches were <ins>deleted</ins> after revision and merging were completed
+
+### **a. Data extraction**
+Raw data was directly obtained as a .csv file from the database [UC Irvine Machine Learning Repository](https://archive.ics.uci.edu/dataset/544/estimation+of+obesity+levels+based+on+eating+habits+and+physical+condition) and stored in the `data/raw` folder for preprocessing.
+
+### **b. Exploratory data analysis (EDA)**
+EDA was performed on the raw and preprocessed datasets. It consisted of gaining fundamental insights of the datatasets such as the number of examples (rows) and features (columns), the type of data, missing values, duplicate examples, outliers, feature value distribution.
+
+For the above we employed measures of central tendency, as well as a series of histograms, bar plots, and correlation matrices.
+
+The EDA pipeline outputs, a report in .txt format and plots in .png format, are stored in the [data/eda](./data/eda/) folder.
+
+### **c. Data preprocessing**
+To prevent bias during model training, the features `weight` and `height` were scaled using the minmax scaler, within the range (1, 5), as implemented in scikit-learn to match the ranges of the rest of the numerical features.
+
+Categorical variables , `Gender`, `family_history_with_overweight`, `FAVC`, `CAEC`, `SMOKE`, `SCC`, `CALC`, `MTRANS`, including the target `NObeyesdad` where encoded accordingly. 
+
+### **d. Model training**
+Team members tried different models and tools, see Table 2. 
+
+#### **Table 2.** Experiments model details
+| **Team member** | **Maria** | **Melanie** | **Ghazaleh** | **Cristian** |
+|---|---|---|---|---|
+| **Algorithm** | Random Forest Classifier | Random Forest Classifier |     [LightGBM](https://lightgbm.readthedocs.io/en/stable/) Classifier |     XGBClassifier |
+| **Best parameters** | Parameters: {'criterion':   'entropy', 'max_depth': 15, 'n_estimators': 68} | Parameters: {'max_depth': 21,   'n_estimators': 450} | Parameters: {'learning_rate':   0.05, 'max_depth': 7, 'n_estimators': 350, 'num_leaves': 20} | Best parameters:   {'classifier__learning_rate': 0.05, 'classifier__max_depth': 5,   'classifier__n_estimators': 325, 'classifier__subsample': 1.0} |
+| **Hyperparameter optimization   method** | [Optuna](https://optuna.org/) | [GridSearchCV](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html) | GridSearchCV | GridSearchCV |
+| **CV** | Yes | Yes | Yes | Yes |
+| **Other** | Feature selection using   `mutual_info_classif` |  |  |  |
+| **Performance** | CV Accuracy: 0.947 | Train Accuracy: 0.953  | Train Accuracy: 1.0 | Train Accuracy: 0.972 |
+|  | Test Accuracy: 0.950 | Test Accuracy: 0.939 | Test Accuracy: 0.969 | Test Accuracy: 0.967    |
+
+For the final implementation, the best performing models from [Table 2](#table-2-experiments-model-details) were chosen, using Optuna for hyperparameter optimization, cross-validation, and feature selection. In addition, a baseline using a decision tree with default parameters was included. 
+
+### **e. Model validation**
+### **f. Feature analysis**
+### **g. Dashboard for model showcase**
 
 ## **Key Findings**
+### About the dataset:
+- No outliers were found
+- Most of the numerical features show a Gaussian distribution
+- Target classes are 
+
+### About model training
+
 
 ## **Conclusion**
 
@@ -107,6 +144,8 @@ About project management and versioning using Git/GitHub.
 ├───docs
 │   └───figures
 ├───experiments
+│   ├───model-exp-team-member.py
+│   └───README.md
 ├───eda
 │   └───eda.py
 ├───models
@@ -115,7 +154,7 @@ About project management and versioning using Git/GitHub.
 ```
 
 - **data**: Contains raw and processed datasets
-  - **eda**: EDA pipeline outputs, including a report and plots
+  - **eda**: EDA pipeline outputs, including a report .txt file and plots
   - **preprocessed**: preprocessed datasets
   - **raw**: source raw data
 - **docs**: figures and tool files
