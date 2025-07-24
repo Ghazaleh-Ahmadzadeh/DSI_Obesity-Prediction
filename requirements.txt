@@ -1,5 +1,8 @@
+optuna==4.4.0
+scikit-learn==1.5.1
+SQLAlchemy==2.0.41
 pandas==2.2.2
-scikit-learn==1.6.1
-numpy==2.0.0
-matplotlib==3.9.0
-streamlit==1.40.2
+numpy==1.26.4
+matplotlib==3.10.3
+shap==0.48.0
+aquarel==0.0.7

@@ -1,9 +1,9 @@
-name: dsi-obesity
+name: obesity-factors-prediction
 channels:
-  - conda-forge
   - defaults
 dependencies:
-  - python==3.12
-  - pip=24.2
+  - python=3.12.4
+  - pip
+  - wheel
   - pip:
       - -r requirements.txt
