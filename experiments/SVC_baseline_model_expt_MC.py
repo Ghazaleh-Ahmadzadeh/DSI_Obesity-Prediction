@@ -6,13 +6,14 @@ import numpy as np
 from sklearn.pipeline import Pipeline
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, ConfusionMatrixDisplay, roc_curve, auc
 import optuna
 from optuna.integration import OptunaSearchCV
 import matplotlib.pyplot as plt
 import textwrap
 from sklearn.feature_selection import mutual_info_classif, SelectKBest, f_classif
-
+from sklearn.preprocessing import label_binarize
+from itertools import cycle
 
 # %%
 # Load training scaled datasets
@@ -38,7 +39,7 @@ print(y_test_reshaped.shape)
 # %%
 # Baseline pipeline using Support Vector Classifier (SVC) as model
 pipe_svc = Pipeline([
-    ('svc', SVC(random_state = 42))
+    ('svc', SVC(random_state = 42, probability = True, decision_function_shape = 'ovr'))
 ])
 
 # Define parameter grid search for SVC
@@ -76,13 +77,115 @@ print(classification_report(y_test, y_pred_svc))
 cm_svc = confusion_matrix(y_test_reshaped, y_pred_svc)
 ConfusionMatrixDisplay(confusion_matrix = cm_svc).plot();
 
+# %%
+# Define function to plot ROC curve for different models
+class_names = np.unique(y_test)
+
+# Define custom intervals for x and y axes
+x_ticks = np.arange(0.0, 0.2, 0.05)
+y_ticks = np.arange(0.8, 1.05, 0.05)
+
+def plot_roc_curve(model, X_test, y_test, class_names, focus_on_top_left = True, x_ticks = None, y_ticks = None):
+    """
+    Function to plot ROC curves for multi-class classification problem.
+
+    Parameters:
+    model (sklearn model): Trained model (SVC and GridSearch, SVC and Optuna, SVC and Optuna and Feature Selection)
+    X_test (array-like): Test features
+    y_test (array-like): True labels from test set
+    class_names (list): List of class labels for the classes
+    focus_on_top_left (bool): Zoom into the top-left quadrant of the ROC curve (default is True)
+    x_ticks (list): Custom ticks for the x-axis (optional)
+    y_ticks (list): Custom ticks for the y-axis (optional)
+    """
+    
+    # Predict probabilities from the trained model
+    y_prob = model.predict_proba(X_test)
+
+    # Bin the true labels
+    y_test_bin = label_binarize(y_test, classes = class_names)
+    n_classes = y_prob.shape[1]
+
+    # Calculate ROC curve and AUC for each class
+    fpr = dict()
+    tpr = dict()
+    roc_auc_per_class = dict() 
+    
+    for i in range(n_classes):
+        fpr[i], tpr[i], _ = roc_curve(y_test_bin[:, i], y_prob[:, i])
+        roc_auc_per_class[i] = auc(fpr[i], tpr[i])
+
+    # Calculate micro-average ROC curve
+    fpr["micro"], tpr["micro"], _ = roc_curve(y_test_bin.ravel(), y_prob.ravel())
+    roc_auc_per_class["micro"] = auc(fpr["micro"], tpr["micro"])
+
+    # Calculate macro-average ROC curve
+    all_fpr = np.unique(np.concatenate([fpr[i] for i in range(n_classes)]))
+    mean_tpr = np.zeros_like(all_fpr)
+
+    for i in range(n_classes):
+        mean_tpr += np.interp(all_fpr, fpr[i], tpr[i])
+    mean_tpr /= n_classes
+
+    fpr["macro"] = all_fpr
+    tpr["macro"] = mean_tpr
+    roc_auc_per_class["macro"] = auc(fpr["macro"], tpr["macro"])
+
+    plt.figure(figsize=(8, 6))
+
+    # ROC curves for micro and macro averages
+    plt.plot(fpr["micro"], tpr["micro"], label = f"Micro-average ROC curve (AUC = {roc_auc_per_class['micro']:.2f})", 
+             color = "pink", linestyle = ":", linewidth = 2)
+    plt.plot(fpr["macro"], tpr["macro"], label = f"Macro-average ROC curve (AUC = {roc_auc_per_class['macro']:.2f})", 
+             color = "navy", linestyle = ":", linewidth = 2)
+
+    # Assign colors for each class
+    colors = cycle(["aqua", "darkorange", "cornflowerblue", "red", "green", "blue", "purple"])
+
+    # Plot each class ROC curve
+    for i, color in zip(range(n_classes), colors):
+        plt.plot(fpr[i], tpr[i], color = color, lw = 2, 
+                 label = f"{class_names[i]} ROC (AUC = {roc_auc_per_class[i]:.2f})")
+
+    # Plot diagonal line (no discrimination line)
+    plt.plot([0, 1], [0, 1], "k--", lw = 1)
+
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+
+    # Zoom on top-left area of plot
+    if focus_on_top_left:
+        plt.xlim([0.0, 0.2]) 
+        plt.ylim([0.8, 1.05])
+
+    # Provide custom ticks for the x and y axes
+    if x_ticks is not None:
+        plt.xticks(x_ticks)
+    if y_ticks is not None:
+        plt.yticks(y_ticks)
+        
+    # Get the name of the model class
+    model_name = model.__class__.__name__  
+    plt.title(f"ROC Curves for {model_name} (OvR macro & micro avg)")
+    plt.legend(loc = "lower right")
+
+    plt.show()
+
+# %%
+# Plot ROC curve for SVC and GridSearchCV model
+plot_roc_curve(grid_svc, X_test, y_test, class_names, focus_on_top_left = False, x_ticks = None, y_ticks = None)
+
+# %%
+# Plot zoomed-in ROC curve for SVC and GridSearchCV model
+plot_roc_curve(grid_svc, X_test, y_test, class_names, focus_on_top_left = True, x_ticks = x_ticks, y_ticks = y_ticks)
+
 # %% [markdown]
 # ### II) Compare GridSearch CV vs Optuna performance
 
 # %%
 # Use same svc pipeline and parameters but with optuna instead of GridSearchCV
 pipe_svc = Pipeline([
-    ('svc', SVC(random_state = 42))
+    ('svc', SVC(random_state = 42, probability = True, decision_function_shape = 'ovr'))
 ])
 
 # Define parameter grid search for SVC
@@ -93,7 +196,7 @@ param_grid_opt = {
 }
 
 # OptunaSearchCV with 'accuracy' as the scoring metric
-opt_svc = OptunaSearchCV(pipe_svc, param_grid_opt, n_trials = 500,
+opt_svc = OptunaSearchCV(pipe_svc, param_grid_opt, n_trials = 100,
                          cv = 5, scoring = 'accuracy', n_jobs = -1,
                          verbose = 1)
 
@@ -120,6 +223,14 @@ print(classification_report(y_test, y_pred_opt))
 cm_svc_optuna = confusion_matrix(y_test_reshaped, y_pred_opt)
 
 ConfusionMatrixDisplay(confusion_matrix = cm_svc_optuna).plot();
+
+# %%
+# Plot ROC curve for SVC and OptunaSearchCV model
+plot_roc_curve(opt_svc, X_test, y_test, class_names, focus_on_top_left = False, x_ticks = None, y_ticks = None)
+
+# %%
+# Plot zoomed-in ROC curve for SVC and OptunaSearchCV model
+plot_roc_curve(opt_svc, X_test, y_test, class_names, focus_on_top_left = True, x_ticks = x_ticks, y_ticks = y_ticks)
 
 # %% [markdown]
 # ### III) Feature Selection Using Scikit-learn mutual_info_classif
@@ -160,7 +271,7 @@ X_test_sel = X_test[selected_features]
 
 # Use same svc pipeline and parameters but with optuna instead of GridSearchCV
 pipe_svc = Pipeline([
-    ('svc', SVC(random_state = 42))
+    ('svc', SVC(random_state = 42, probability = True, decision_function_shape = 'ovr'))
 ])
 
 # Define parameter grid search for SVC
@@ -171,7 +282,7 @@ param_grid_opt_mic = {
 }
 
 # OptunaSearchCV with 'accuracy' as the scoring metric
-opt_mic = OptunaSearchCV(pipe_svc, param_grid_opt_mic, n_trials = 500,
+opt_mic = OptunaSearchCV(pipe_svc, param_grid_opt_mic, n_trials = 100,
                          cv = 5, scoring = 'accuracy', n_jobs = -1,
                          verbose = 1)
 
@@ -199,6 +310,14 @@ cm_opt_mic = confusion_matrix(y_test_reshaped, y_pred_opt_mic)
 
 ConfusionMatrixDisplay(confusion_matrix = cm_opt_mic).plot();
 
+# %%
+# Plot ROC curve for SVC, OptunaSearchCV, and multi inform classif feature selection model
+plot_roc_curve(opt_mic, X_test_sel, y_test, class_names, focus_on_top_left = False, x_ticks = None, y_ticks = None)
+
+# %%
+# Plot zoomed-in ROC curve for SVC, OptunaSearchCV, and multi inform classif feature selection model
+plot_roc_curve(opt_mic, X_test_sel, y_test, class_names, focus_on_top_left = True, x_ticks = x_ticks, y_ticks = y_ticks)
+
 # %% [markdown]
 # ### IV) Feature selection with SelectKBest
 
@@ -206,7 +325,7 @@ ConfusionMatrixDisplay(confusion_matrix = cm_opt_mic).plot();
 # Define pipeline with SelectKBest feature selection before Optuna search
 pipe_opt_kbest = Pipeline([
     ('select', SelectKBest(score_func = f_classif)),  # Feature selection
-    ('svc', SVC(random_state = 42))  # SVC with random state for reproducibility
+    ('svc', SVC(random_state = 42, probability = True, decision_function_shape = 'ovr'))
 ])
 
 # Define optuna search parameter space
@@ -218,7 +337,7 @@ params_opt_kbest = {
     }
 
 opt_kbest = OptunaSearchCV(pipe_opt_kbest, params_opt_kbest, 
-                           n_trials = 500, cv = 5, n_jobs = -1, 
+                           n_trials = 100, cv = 5, n_jobs = -1, 
                            verbose = 2)
 opt_kbest.fit(X_train, y_train_reshaped)
 
@@ -278,5 +397,13 @@ plt.show()
 cm_opt_kbest = confusion_matrix(y_test_reshaped, y_pred_opt_kbest)
 
 ConfusionMatrixDisplay(confusion_matrix = cm_opt_kbest).plot();
+
+# %%
+# Plot ROC curve for SVC, OptunaSearchCV, and select KBest feature selection model
+plot_roc_curve(opt_kbest, X_test, y_test, class_names, focus_on_top_left = False, x_ticks = None, y_ticks = None)
+
+# %%
+# Plot zoomed-in ROC curve for SVC, OptunaSearchCV, and select KBest feature selection model
+plot_roc_curve(opt_kbest, X_test, y_test, class_names, focus_on_top_left = True, x_ticks = x_ticks, y_ticks = y_ticks)
 
 
