@@ -1,0 +1,187 @@
+# =============================================================================
+# LightGBM Model Training Configuration
+# =============================================================================
+# This file configures all aspects of the LightGBM training pipeline including
+# data paths, hyperparameter optimization settings, and model parameters.
+
+# Global Settings
+# ---------------
+# Random state set to null, will be None in Python script
+# Otherwise set an integer value for reproducible results
+random_state: null
+
+# Logging level for training output (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+log_level: INFO
+
+# Path to preprocessed data directory
+data_path: data/preprocessed
+
+# Training Configuration
+# ----------------------
+training:
+  # Directory where trained models will be saved
+  model_path: models
+  
+  # Type of model to train (currently only lightgbm supported)
+  model_type: lightgbm
+
+  # List of features to use for training, remove or comment features that aren't needed
+  features:
+    names:
+    - Height
+    - Weight
+    - family_history_with_overweight
+    - FAVC
+    - FCVC
+    - NCP
+    - CAEC
+    - SMOKE
+    - CH2O
+    - SCC
+    - FAF
+    - TUE
+    - CALC
+    - Gender_Male
+    - MTRANS_Bike
+    - MTRANS_Motorbike
+    - MTRANS_Public_Transportation
+    - MTRANS_Walking
+    - Age_Category_Young Adult
+    - Age_Category_Adult
+    - Age_Category_Senior
+
+  # TODO: This is not being referenced in the training script yet, we may remove it later
+  # Target variable
+  target:
+    name: obesity_level
+    type: categorical
+
+  # Optuna Hyperparameter Optimization Settings
+  # --------------------------------------------
+  optuna:
+    # Number of optimization trials to run
+    n_trials: 20
+    # Optimization direction (maximize for accuracy, minimize for loss)
+    direction: minimize
+  
+  # GPU Configuration
+  # -----------------
+  gpu:
+    # Whether to use GPU acceleration (requires GPU-enabled LightGBM)
+    enabled: false
+    # GPU device ID (usually 0 for single GPU systems)
+    id: 0
+    # GPU platform ID (usually 0)
+    platform_id: 0
+  
+  # LightGBM Hyperparameter Search Space
+  # ------------------------------------
+  # Each parameter can be enabled/disabled and has min/max ranges for optimization
+  lightgbm:
+  # LightGBM Hyperparameter Search Space
+  # ------------------------------------
+  # Each parameter can be enabled/disabled and has min/max ranges for optimization
+  lightgbm:
+    
+    # Core Model Parameters
+    # ---------------------
+    # Number of boosting iterations (trees)
+    n_estimators:
+      enabled: true
+      type: int
+      minimum: 170
+      maximum: 170
+      step: 1
+    
+    # Boosting learning rate (shrinkage rate)
+    learning_rate:
+      enabled: true
+      type: float
+      minimum: 0.079
+      maximum: 0.079
+      step: 0.001
+    
+    # Maximum number of leaves in one tree
+    num_leaves:
+      enabled: true
+      type: int
+      minimum: 5
+      maximum: 5
+      step: 1
+    
+    # Maximum tree depth (-1 means no limit)
+    max_depth:
+      enabled: true
+      type: int
+      minimum: 6
+      maximum: 6
+      step: 1
+    
+    # Regularization Parameters
+    # -------------------------
+    # Minimum number of data points in a leaf (prevents overfitting)
+    min_child_samples:
+      enabled: true
+      type: int
+      minimum: 255
+      maximum: 255
+      step: 1
+    
+    # L1 regularization term (Lasso)
+    reg_alpha:
+      enabled: true
+      type: float
+      minimum: 0.36
+      maximum: 0.36
+      step: 0.005
+    
+    # L2 regularization term (Ridge) - currently disabled
+    reg_lambda:
+      enabled: false
+      type: float
+      minimum: 0
+      maximum: 0.05
+      step: 0.005
+    
+    # Sampling Parameters
+    # -------------------
+    # Fraction of samples to use for each tree
+    subsample:
+      enabled: true
+      type: float
+      minimum: 0.72
+      maximum: 0.72
+      step: 0.01
+    
+    # Fraction of features to use for each tree - currently disabled
+    colsample_bytree:
+      enabled: false
+      type: float
+      minimum: 0.7
+      maximum: 0.9
+      step: 0.01
+    
+    # Frequency of subsampling (1 = every iteration)
+    subsample_freq:
+      enabled: true
+      type: int
+      minimum: 1
+      maximum: 1
+      step: 1
+    
+    # Algorithm type (gbdt = Gradient Boosting Decision Tree)
+    boosting_type:
+      enabled: true
+      type: str
+      values: ["gbdt"]
+    
+    # Static Parameters (Not Optimized)
+    # ----------------------------------
+    # Verbosity level (-1 = silent, 0 = warning, 1 = info, 2 = debug)
+    verbosity: -1
+    
+    # Objective function for multiclass classification
+    objective: 'multiclass'
+    
+    # Number of classes in the target variable
+    num_class: 7

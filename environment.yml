@@ -1,9 +1,13 @@
-name: obesity-factors-prediction
+name: dsi-ml6-env
 channels:
-  - defaults
+  - conda-forge
 dependencies:
-  - python=3.12.4
-  - pip
-  - wheel
+  - python=3.13
+  - lightgbm
+  - optuna
+  - scikit-learn
+  - pandas
+  - numpy
+  - pyyaml
   - pip:
-      - -r requirements.txt
+    - -r requirements.txt
