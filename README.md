@@ -1,10 +1,10 @@
-# **Classifying Obesity Levels Using Dietary and Lifestyle Information from Individuals in Colombia, Peru, and Mexico**
+# **The Predictive Health Compass: Shifting from Reactive Treatment to Proactive Prevention of Obesity**
 
 Data Science/ Machine Learning Software Foundations Certificate Program, Data Sciences Institute, University of Toronto
 
 Cohort 6 - Team ML #6
 
-This project focuses on an in-depth analysis of the “Estimation of Obesity Levels Based on Eating Habits and Physical Condition” dataset using Machine Learning models to determine which dietary and lifestyle attributes the most significant predictors of obesity levels. Our proposal outlines the development of the "Compass Proactive Health Platform" to identify individuals at risk of developing severe obesity, thereby enabling targeted preventative measures to reduce associated medical healthcare costs.
+This project focuses on an in-depth analysis of the “Estimation of Obesity Levels Based on Eating Habits and Physical Condition” dataset using Machine Learning models to determine which dietary and lifestyle attributes are the most significant predictors of obesity levels. Our proposal outlines the development of the ***Predictive Health Compass*** platform to identify individuals at risk of developing severe obesity, thereby enabling targeted preventative measures to reduce associated medical healthcare costs.
 
 ## **Contents**
 * [Team Members](#team-members)
@@ -40,7 +40,7 @@ In 2023, [a group of researchers ](https://www.nature.com/articles/s41586-023-06
 In this context, developing preventative measures to address obesity must be considered paramount. As a result, people’s quality of life would improve, thereby relieving the strain on the healthcare system, especially for countries where some form of universal health coverage is provided by the government. For example, in Colombia, about 19% of government spending was directed towards healthcare, representing approximately 6.6% of Colombia’s Gross Domestic Product (GDP) in 2021. ([Health in the Americas, Pan American Health Organization: Colombia Profile](https://hia.paho.org/en/country-profiles/colombia))
 
 ### **Business Motivation**
-Here, we propose to determine the features that have the most meaningful impact on their obesity status. These factors range from an individual’s medical history, dietary and health habits to fitness activity. We aim to achieve this goal by training a machine learning model within the context of a classification problem. By identifying the dietary and lifestyle factors influencing obesity in individuals, healthcare providers could help improve tailored solutions for patients that could be translated into a higher treatment success rate. 
+Here, we propose to determine the features that have the most meaningful impact on an individual's obesity status. These factors range from an individual’s medical history, dietary and health habits to fitness activity. We aim to achieve this goal by training a machine learning model within the context of a classification problem. By identifying the dietary and lifestyle factors influencing obesity in individuals, healthcare providers can then offer tailored solutions to patients, translating into a higher treatment success rate. 
 
 - **Client**: Goverment within a context of Business-to-Government (B2G) scheme
 - **End User**: Health providers, e.g., hospitals and physicians
@@ -73,7 +73,7 @@ Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obe
 | CALC | Categorical | How often do you drink alcohol?|
 | MTRANS | Categorical | Which transportation do you usually use? |
 
-From exploratory data analysis, it was found that the target classes are not heavely imbalanced (see [Figure 2](#fig2)), as a result, no bias is expected from this component of the data.
+From exploratory data analysis, it was found that the target classes are not heavily imbalanced (see [Figure 2](#fig2)). As a result, no bias is expected from this component of the data.
 
 
 <div align="center">
@@ -84,7 +84,7 @@ From exploratory data analysis, it was found that the target classes are not hea
 </div><br />
 
 
-The linear correlation between the various numerical features in the dataset was evaluated showing that no strong dependency between features existed (see [Figure 3](#fig3)). 
+The linear correlation between the various numerical features in the dataset was evaluated, showing no strong dependency between features (see [Figure 3](#fig3)). 
 
 <div align="center">
   <img src="docs/figures/fig3-corr.png" alt="Fig 3. Linear correlation between numerical features" style="width:60%;height:60%">
@@ -97,9 +97,9 @@ The linear correlation between the various numerical features in the dataset was
 > [!IMPORTANT]  
 > **Dataset quality**
 >
-> As the authors discuss in the [original paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC6710633/) where the dataset was first published, only 23% of the dataset corresponds to data collected from a group of participants of the research study via a web platform. The rest 77% of the datset was synthetically obtained using the [Synthetic Minority Over-sampling Technique (SMOTE)](https://www.jair.org/index.php/jair/article/view/10302) as implemented in the [Weka machine learning tool](https://weka.sourceforge.io/doc.packages/SMOTE/weka/filters/supervised/instance/SMOTE.htmlhttps://weka.sourceforge.io/doc.packages/SMOTE/weka/filters/supervised/instance/SMOTE.html). 
+> As the authors discuss in the [original paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC6710633/) where the dataset was first published, only 23% of the dataset corresponds to data collected from a group of participants of the research study via a web platform. The remaining 77% of the datset was synthetically obtained using the [Synthetic Minority Over-sampling Technique (SMOTE)](https://www.jair.org/index.php/jair/article/view/10302) as implemented in the [Weka machine learning tool](https://weka.sourceforge.io/doc.packages/SMOTE/weka/filters/supervised/instance/SMOTE.htmlhttps://weka.sourceforge.io/doc.packages/SMOTE/weka/filters/supervised/instance/SMOTE.html). 
 > 
-> **SMOTE** effectively addresses the class imbalance problem by generating synthetic data within the minority class feature vector space. However, from construction, it **ineffectively handles categorical data** and it requires further tunning of the the nearest neighbours hyperparameter. Furthermore, SMOTE samples new examples by performing interpolations that constrain the generalization of the data.
+> **SMOTE** effectively addresses the class imbalance problem by generating synthetic data within the minority class feature vector space. However, from construction, it **ineffectively handles categorical data** and it requires further tuning of the the nearest neighbours hyperparameter. Furthermore, SMOTE samples new examples by performing interpolations that constrain the generalization of the data.
 >
 > The obesity dataset used here has several categorical features and the authors do not specify the number of nearest neighbours they employed or whether or not such hyperparameter was optimized.
 >
@@ -109,7 +109,7 @@ The linear correlation between the various numerical features in the dataset was
 >
 > - Information from other datasets could be integrated into the [dataset used here](https://archive.ics.uci.edu/dataset/544/estimation+of+obesity+levels+based+on+eating+habits+and+physical+condition) to cover demographics from regions other than Barranquilla, Colombia, Lima, Peru, and Mexico City, Mexico. For example, the one being created by [Moreno-Estrada A. an collaborators](https://www.nature.com/articles/s41586-023-06560-0).
 >
-> - Use algorithms and methods capable of effectively handling imbalanced datase such as those described at [imbalanced-learn](https://imbalanced-learn.org/stable/index.html).
+> - Use algorithms and methods capable of effectively handling imbalanced datasets such as those described at [imbalanced-learn](https://imbalanced-learn.org/stable/index.html).
 
 ## **Methodology**
 Exploratory data analysis (EDA), data preprocessing and model training experiment outputs are stored in the `data` folder using the corresponding timestamp of the experiment execution time.
@@ -118,19 +118,19 @@ In all cases, Jupyter notebooks were used to test code before implementing it in
 
 ### About project management 
 - The team held regular virtual stand ups to discuss the project objectives, planning, progress, and address any blockers. 
-- A google docs document was employed to keep track of the project progress, references and other documentation, model experiments planning, team ideation/brain stormming, meetings agenda and outcomes
+- A google docs document was employed to keep track of the project progress, references and other documentation, model experiments planning, team ideation/brain stormming, meetings agenda and outcomes.
 
 ### About project versioning using Git/GitHub
-- Team members open and merged at least one pull request (PR) 
-- At least two team members were assigned to reviewing each PR
-- The team member to open the PR was not necessarily the person to close it
-- Branches were <ins>deleted</ins> after revision and merging were completed
+- Team members opened and merged at least one pull request (PR). 
+- At least two team members were assigned to reviewing each PR.
+- The team member to open the PR was not necessarily the person to close it.
+- Branches were <ins>deleted</ins> after revision and merging were completed.
 
 ### **a. Data extraction**
 Raw data was directly obtained as a .csv file from the database [UC Irvine Machine Learning Repository](https://archive.ics.uci.edu/dataset/544/estimation+of+obesity+levels+based+on+eating+habits+and+physical+condition) and stored in the `data/raw` folder for preprocessing.
 
 ### **b. Exploratory data analysis (EDA)**
-EDA was performed on the raw and preprocessed datasets. It consisted of gaining fundamental insights of the datatasets such as the number of examples (rows) and features (columns), the type of data, missing values, duplicate examples, outliers, feature value distribution.
+EDA was performed on the raw and preprocessed datasets. It consisted of gaining fundamental insights of the datasets, such as the number of examples (rows) and features (columns), the type of data, missing values, duplicate examples, outliers, feature value distribution.
 
 For the above we employed measures of central tendency, as well as a series of histograms, bar plots, and correlation matrices.
 
