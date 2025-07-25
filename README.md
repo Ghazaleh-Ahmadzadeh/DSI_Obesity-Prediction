@@ -16,20 +16,26 @@ This project focuses on an in-depth analysis of the “Estimation of Obesity Lev
 * [Folder Structure](#folder-structure)
 * [How to use this repo](#how-to-use-this-repo)
   
-## **Team Members**
+## **Main Contributors**
 
 * Maria Rossano ([rossanot](https://github.com/rossanot))  
 * Reshma Rajendran ([EzhavaReshma](https://github.com/EzhavaReshma))
 * Ghazaleh Ahmadzadeh ([Ghazaleh-Ahmadzadeh](https://github.com/Ghazaleh-Ahmadzadeh))  
-* Melanie Cheung See Kit ([melcsk](https://github.com/melcsk))  
-* Elizabeta Radaeva ([eradaeva1](https://github.com/eradaeva1))  
-* Cristian Nicolas Cordova Puglianini ([NicoForce](https://github.com/NicoForce))
+* Melanie Cheung See Kit ([melcsk](https://github.com/melcsk))
+* Cristian Nicolas Cordova Puglianini ([NicoForce](https://github.com/NicoForce)) 
 
 ## **Introduction**
 Obesity is a diagnosis given to individuals with excessive body fat and calculated Body Mass Index (BMI) of greater or equal to 30kg/m<sup>2</sup>. It often becomes a long-term and chronic health condition that is associated with increased risks of other complications, such as type 2 diabetes, heart disease, and cancer. Thus, patients’ treatments have become a heavy burden to the healthcare system. In the Americas region, obesity is a prevalent condition among adults (Fig. 1) and is estimated to cost 985.99 billion USD, mostly in medical expenses ([Okunogbe et al., 2022, e009773](https://pubmed.ncbi.nlm.nih.gov/36130777/)). 
 
-![Fig1](docs/figures/fig1-obesity.png)
-Fig 1. Percentage of Adults with obesity (BMI  ≥ 30kg/m<sup>2</sup>) across selected countries (Data Tables | World Obesity Federation Global Obesity Observatory, 2025).
+
+<div align="center">
+  <img src="docs/figures/fig1-obesity.png" alt="Fig 1. Percentage of Adults with obesity (BMI ≥ 30kg/m²) across selected countries" style="width:60%;">
+  <div style="text-align:justify; max-width:600px; margin:auto;">
+    <b>Fig 1.</b> Percentage of Adults with obesity (BMI ≥ 30kg/m<sup>2</sup>) across selected countries (Data Tables | World Obesity Federation Global Obesity Observatory, 2025).
+  </div>
+</div><br />
+
+In 2023, [a group of researchers ](https://www.nature.com/articles/s41586-023-06560-0) provided insights about genetic characteristics and environmental factors associated to certain traits determining the body mass index, glucose, and height of subpopulation groups within Mexico.
 
 In this context, developing preventative measures to address obesity must be considered paramount. As a result, people’s quality of life would improve, thereby relieving the strain on the healthcare system, especially for countries where some form of universal health coverage is provided by the government. For example, in Colombia, about 19% of government spending was directed towards healthcare, representing approximately 6.6% of Colombia’s Gross Domestic Product (GDP) in 2021. ([Health in the Americas, Pan American Health Organization: Colombia Profile](https://hia.paho.org/en/country-profiles/colombia))
 
@@ -69,19 +75,41 @@ Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obe
 
 From exploratory data analysis, it was found that the target classes are not heavely imbalanced (see [Figure 2](#fig2)), as a result, no bias is expected from this component of the data.
 
-![Fig2](docs/figures/fig2-target-classes.png)
-Fig 2. Distribution of classes of the target
+
+<div align="center">
+  <img src="docs/figures/fig2-target-classes.png" alt="Fig 2. Distribution of classes of the target." style="width:60%;height:60%">
+  <div style="text-align:justify; max-width:600px; margin:auto;">
+    <b>Fig 2.</b> Distribution of classes of the target.
+  </div>
+</div><br />
 
 
 The linear correlation between the various numerical features in the dataset was evaluated showing that no strong dependency between features existed (see [Figure 3](#fig3)). 
 
-![Fig3](docs/figures/fig3-corr.png)
-Fig 3. Linear correlation between numerical features
+<div align="center">
+  <img src="docs/figures/fig3-corr.png" alt="Fig 3. Linear correlation between numerical features" style="width:60%;height:60%">
+  <div style="text-align:justify; max-width:600px; margin:auto;">
+    <b>Fig 3.</b> Linear correlation between numerical features.
+  </div>
+</div><br />
 
-#### **SMOTE**
-Note that for this dataset, authors generated 77% of the data synthetically using Weka tool and SMOTE filter while 23% was collected directly from participants via a web platform.
 
-## **Objectives**
+> [!IMPORTANT]  
+> **Dataset quality**
+>
+> As the authors discuss in the [original paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC6710633/) where the dataset was first published, only 23% of the dataset corresponds to data collected from a group of participants of the research study via a web platform. The rest 77% of the datset was synthetically obtained using the [Synthetic Minority Over-sampling Technique (SMOTE)](https://www.jair.org/index.php/jair/article/view/10302) as implemented in the [Weka machine learning tool](https://weka.sourceforge.io/doc.packages/SMOTE/weka/filters/supervised/instance/SMOTE.htmlhttps://weka.sourceforge.io/doc.packages/SMOTE/weka/filters/supervised/instance/SMOTE.html). 
+> 
+> **SMOTE** effectively addresses the class imbalance problem by generating synthetic data within the minority class feature vector space. However, from construction, it **ineffectively handles categorical data** and it requires further tunning of the the nearest neighbours hyperparameter. Furthermore, SMOTE samples new examples by performing interpolations that constrain the generalization of the data.
+
+> The obesity dataset used here has several categorical features and the authors do not specify the number of nearest neighbours they employed or whether or not such hyperparameter was optimized.
+>
+> **To improve the quality of the dataset and machine learning models we propose the following paths:**
+>
+> - Oversample minority class using GenAI methods based on Generative Adversaria Networks (GANs) or Variational Autoencoders, e.g., [ydata synthetic](https://github.com/ydataai/ydata-synthetic)
+>
+> - Information from other datasets could be integrated into the [dataset used here](https://archive.ics.uci.edu/dataset/544/estimation+of+obesity+levels+based+on+eating+habits+and+physical+condition) to cover demographics from regions other than Barranquilla, Colombia, Lima, Peru, and Mexico City, Mexico. For example, the one being created by [Moreno-Estrada A. an collaborators](https://www.nature.com/articles/s41586-023-06560-0).
+>
+> - Use algorithms and methods capable of effectively handling imbalanced datase such as those described at [imbalanced-learn](https://imbalanced-learn.org/stable/index.html).
 
 ## **Methodology**
 Exploratory data analysis (EDA), data preprocessing and model training experiment outputs are stored in the `data` folder using the corresponding timestamp of the experiment execution time.
@@ -148,6 +176,8 @@ During model validation, [Support Vector Classifier](https://scikit-learn.org/st
 | **Test Accuracy** | 0.967 | 0.962 | | |
 
 ### **f. Feature analysis**
+
+
 ### **g. Dashboard for model showcase**
 
 ## **Key Findings**
