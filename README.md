@@ -104,7 +104,14 @@ Note that for this dataset, authors generated 77% of the data synthetically usin
 - **README.md**: This file
 
 ## How-to use this repo
-It is recommended to create a dedicated environment for this repo
+There's an environment.yml with the dependencies, if a conda environment doesn't exist yet, it can be created with the needed dependencies with this command:
 
-``conda env create -f environment.yml
-``
+```
+conda env create --file environment.yml
+```
+
+Otherwise, if the conda environment name already exists, it can be updated to match the `environment.yml` file with the following command:
+
+```
+conda env update --file environment.yml --prune
+```
