@@ -50,10 +50,10 @@ Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obe
 
 | Feature Name        | Type | Description |
 | ----------------- | ------ | ----------------- |
-| Gender      | Categorical      |               |
-| Age     | Continuous      |               |
-| Height     | Continuous      |               |
-| Weight      | Continuous      |               |
+| Gender      | Categorical      | Categorical variable indicating the biological sex of the individual              |
+| Age     | Continuous      | Numerical variable representing the age of the individual in years              |
+| Height     | Continuous      | Numerical variable representing the height of the individual in meters. Used to calculate BMI and other health indicators.              |
+| Weight      | Continuous      | Numerical variable representing the body weight of the individual. Combined with height to assess obesity levels              |
 | family_history_with_overweight      | Binary     | Has a family member suffered or suffers from being overweight?              |
 | FAVC | Binary | Do you eat high caloric food frequently? |
 | FCVC | Integer | Do you usually eat vegetables in your meals? |
