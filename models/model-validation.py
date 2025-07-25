@@ -6,6 +6,7 @@ import numpy as np
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay, roc_curve, auc
 from sklearn.preprocessing import label_binarize
 import matplotlib.pyplot as plt
+from itertools import cycle
 
 # Load Model
 def load_model(model_path='model.pkl'):
@@ -55,7 +56,8 @@ def generate_confusion_matrix(y_test: pd.Series,
 
 def plot_confusion_matrix(
         cm: pd.DataFrame, 
-        labels: list
+        labels: list,
+        filename: str = 'confusion_matrix.png'
         ) -> plt.Figure:
     """ Plot the confusion matrix using sklearn.metrics
     """
@@ -141,6 +143,7 @@ def plot_roc_curve(model: object,
 
     plt.show()
 
+# Save figure
 def save_fig(
         fig: plt.Figure,
         path: str
@@ -184,13 +187,16 @@ def main():
     # Generate confusion matrix
     cm = generate_confusion_matrix(y_test, y_pred)
 
-    # Display confusion matrix
-    plot_confusion_matrix(cm, labels)
+    # Display and save confusion matrix
+    confusion_matrix = plot_confusion_matrix(cm, labels, filename = 'confusion_matrix.png')
+    save_fig(confusion_matrix, OUTPUT_PATH)
 
     class_names = np.unique(y_test)
 
-    # Plot ROC curve
-    plot_roc_curve(model, X_test, y_test, class_names, filename = 'roc_curve.png')
+    # Plot and save ROC curve
+    roc_curve = plot_roc_curve(model, X_test, y_test, class_names, filename = 'roc_curve.png')
+    save_fig(roc_curve, OUTPUT_PATH)
+    
 
 # Run the program
 if __name__ == "__main__":
