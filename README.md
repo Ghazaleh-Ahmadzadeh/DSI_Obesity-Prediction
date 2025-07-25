@@ -266,5 +266,24 @@ bash run.sh preproc
 ```
 
 - Model training
+
+```bash
+bash run.sh train
+```
+
 - Model validation
+```bash
+bash run.sh model-validation
+```
+
 - Dashboard
+
+```bash
+bash run.sh model-visualization
+```
+
+- Run the entire pipeline
+
+```bash
+bash run.sh pipeline
+```
