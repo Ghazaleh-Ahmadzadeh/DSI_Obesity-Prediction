@@ -1,4 +1,24 @@
-# Ignore any .log files created by pipelines
+# experiments and jupyter files
+experiments/*.ipynb
+*.ipynb_checkpoints
+
+# Environments
+.env
+.envrc
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# mypy
+.mypy_cache/
+
+# Vim
+*~
+.*.swo
+.*.swp# Ignore any .log files created by pipelines
 *.log
 
 # Commenting DS_Store from Mac OS
