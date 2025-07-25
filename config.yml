@@ -132,7 +132,7 @@ training:
       enabled: true
       type: float
       minimum: 0.36
-      maximum: 0.5
+      maximum: 0.36
       step: 0.005
     
     # L2 regularization term (Ridge) - currently disabled
@@ -149,8 +149,8 @@ training:
     subsample:
       enabled: true
       type: float
-      minimum: 0.65
-      maximum: 0.85
+      minimum: 0.72
+      maximum: 0.72
       step: 0.01
     
     # Fraction of features to use for each tree - currently disabled
