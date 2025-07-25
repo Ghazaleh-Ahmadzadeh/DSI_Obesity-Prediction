@@ -197,17 +197,17 @@ def save_fig(
 
 def main():
     MODEL_PATH = './model-training/'
-    OUTPUT_PATH = './data/model_output/'
+    OUTPUT_PATH = './data/model_validation_output/'
+
+    # Create a Unique Directory for Model Validation Output Files
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    output_dir = os.path.join(OUTPUT_PATH, f"model__validation_output_{timestamp}")
 
     # Load model
     load_model(MODEL_PATH)
 
     # Make predictions
     y_pred = predict(model, X_test)
-
-    # Create a Unique Directory for Output Files
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_dir = os.path.join(OUTPUT_PATH, 'model_output', f"model_output_{timestamp}")
 
     os.makedirs(output_dir, exist_ok=True)
     print(f"Created directory for output files: '{output_dir}/'")
