@@ -1,2 +1,5 @@
 # Ignore any .log files created by pipelines
 *.log
+
+# Commenting DS_Store from Mac OS
+*/.DS_Store

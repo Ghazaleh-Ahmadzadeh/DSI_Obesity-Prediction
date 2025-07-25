@@ -68,7 +68,7 @@ training:
   # -----------------
   gpu:
     # Whether to use GPU acceleration (requires GPU-enabled LightGBM)
-    enabled: true
+    enabled: false
     # GPU device ID (usually 0 for single GPU systems)
     id: 0
     # GPU platform ID (usually 0)
