@@ -311,6 +311,44 @@ def save_model(model, model_path: str, model_name: str) -> str:
         raise
 
 
+def filter_features(X_train: pd.DataFrame, yaml_config: dict) -> pd.DataFrame:
+    """
+    Filter X_train to only include features specified in the config file.
+    
+    Args:
+        X_train: Original training features DataFrame
+        yaml_config: YAML configuration dictionary containing feature selection
+        
+    Returns:
+        Filtered DataFrame with only selected features
+        
+    Raises:
+        ValueError: If no valid features are found
+    """
+    selected_features = yaml_config['training']['features']['names']
+    logging.info(f"🔍 Filtering features based on config.yml")
+    logging.info(f"Available features in dataset: {list(X_train.columns)}")
+    logging.info(f"Selected features from config: {selected_features}")
+    
+    # Check if all selected features exist in the dataset
+    missing_features = [f for f in selected_features if f not in X_train.columns]
+    if missing_features:
+        logging.warning(f"⚠️ Missing features in dataset: {missing_features}")
+        # Remove missing features from selection
+        selected_features = [f for f in selected_features if f in X_train.columns]
+        logging.info(f"Updated selected features (removed missing): {selected_features}")
+    
+    # Validate that we have at least one feature
+    if not selected_features:
+        raise ValueError("No valid features found in dataset from config selection")
+    
+    # Filter X_train to only include selected features
+    X_train_filtered = X_train[selected_features].copy()
+    logging.info(f"✅ Features filtered - Original: {X_train.shape[1]} features, Selected: {X_train_filtered.shape[1]} features")
+    logging.info(f"Final dataset shape: {X_train_filtered.shape}")
+    
+    return X_train_filtered
+
 def log_optimization_parameters(yaml_config: dict) -> None:
     """
     Log which parameters will be optimized and which are disabled.
@@ -422,6 +460,9 @@ def main():
         
         logging.info(f"✅ Data loaded successfully - Shape: {X_train.shape}, Classes: {y_train.nunique()}")
         logging.info(f"Class distribution:\n{y_train.value_counts().sort_index()}")
+
+        # Filter features based on config.yml
+        X_train = filter_features(X_train, yaml_config)
 
         # Log which parameters will be optimized
         log_optimization_parameters(yaml_config)
