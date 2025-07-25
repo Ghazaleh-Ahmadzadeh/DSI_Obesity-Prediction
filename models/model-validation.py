@@ -6,6 +6,7 @@ import numpy as np
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay, roc_curve, auc
 from sklearn.preprocessing import label_binarize
 import matplotlib.pyplot as plt
+import shap
 from itertools import cycle
 
 MODEL_PATH = './model-training/'
@@ -158,6 +159,28 @@ def plot_roc_curve(model: object,
 
     plt.show()
 
+# Run SHAP analysis
+def calculate_shap_values(model, 
+                          X_train: pd.DataFrame
+                          ) -> pd.DataFrame:
+    """ Calculate SHAP values using the trained model and training data.
+    """
+    # Create SHAP explainer for tree-based models
+    explainer = shap.TreeExplainer(model)
+    # Calculate SHAP values for test set (or subset for speed)
+    shap_values = explainer.shap_values(X_train)
+    return shap_values
+
+def shap_plot_summary(shap_values: pd.DataFrame, X_train):
+    """ Plot a SHAP summary to visualize feature importance. 
+    """
+    shap.summary_plot(shap_values, X_train)
+
+def plot_shap_bar(shap_values, X_train, filename: str = 'shap_bar.png'):
+    """ Plot a bar plot for SHAP values to visualize feature impact. 
+    """
+    shap.summary_plot(shap_values, X_train, plot_type="bar")
+
 # Save figure
 def save_fig(
         fig: plt.Figure,
@@ -212,6 +235,11 @@ def main():
     roc_curve = plot_roc_curve(model, X_test, y_test, class_names, filename = 'roc_curve.png')
     save_fig(roc_curve, OUTPUT_PATH)
     
+    # Run SHAP analysis
+    shap_values = calculate_shap_values(model, X_train)
+    shap_plot_summary(shap_values, X_train)
+    shap_bar = plot_shap_bar(shap_values, X_train, filename = 'shap_bar.png')
+    save_fig(shap_bar, OUTPUT_PATH)
 
 # Run the program
 if __name__ == "__main__":
