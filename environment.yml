@@ -1,0 +1,9 @@
+name: obesity-factors-prediction
+channels:
+  - defaults
+dependencies:
+  - python=3.12.4
+  - pip
+  - wheel
+  - pip:
+      - -r requirements.txt
