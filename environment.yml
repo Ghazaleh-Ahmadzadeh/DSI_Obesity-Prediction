@@ -1,0 +1,11 @@
+name: dsi-ml6-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - lightgbm
+  - optuna
+  - scikit-learn
+  - pandas
+  - numpy
+  - pyyaml
