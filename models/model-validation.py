@@ -8,6 +8,9 @@ from sklearn.preprocessing import label_binarize
 import matplotlib.pyplot as plt
 from itertools import cycle
 
+MODEL_PATH = './model-training/'
+OUTPUT_PATH = './data/model_output/'
+
 # Load Model
 def load_model(model_path='model.pkl'):
     with open(model_path, 'rb') as f:
@@ -33,7 +36,8 @@ def generate_classification_report(y_test: pd.Series,
     """
     return classification_report(y_test.values.ravel(), y_pred)
 
-def save_text_output(train_accuracy: float,
+def save_text_output(file_path: str,
+                     train_accuracy: float,
                      test_accuracy: float,
                      output: str,
                      filename: str = 'model_output.txt'
@@ -41,11 +45,22 @@ def save_text_output(train_accuracy: float,
 
     """ Save accuracy scores and classification report to text file.
     """
-    with open(filename, 'w') as f:
-        f.write(f"Train Accuracy Score: {train_accuracy:.4f}\n\n")
-        f.write(f"Test Accuracy Score: {test_accuracy:.4f}\n\n")
-        f.write("Classification Report:\n")
-        f.write(output)
+    # Ensure the directory exists, if not, create it
+    os.makedirs(file_path, exist_ok=True)
+    
+    # Combine directory path and file name to form full file path
+    full_file_path = os.path.join(file_path, filename)
+
+    try:
+        with open(filename, 'w') as f:
+            f.write(f"Train Accuracy Score: {train_accuracy:.4f}\n\n")
+            f.write(f"Test Accuracy Score: {test_accuracy:.4f}\n\n")
+            f.write("Classification Report:\n")
+            f.write(output)
+        print(f"Output successfully saved to {full_file_path}")
+        
+    except Exception as e:
+        print(f"Error saving output: {e}")
 
 def generate_confusion_matrix(y_test: pd.Series, 
                               y_pred: pd.Series
@@ -182,14 +197,14 @@ def main():
     report = classification_report(y_test, y_pred)
 
     # Save accuracy scores and classification report to text file
-    save_text_output(train_accuracy, test_accuracy, report, filename="model_results.txt")
+    save_text_output(output_dir, train_accuracy, test_accuracy, report, filename = "model_results.txt")
 
     # Generate confusion matrix
     cm = generate_confusion_matrix(y_test, y_pred)
 
     # Display and save confusion matrix
     confusion_matrix = plot_confusion_matrix(cm, labels, filename = 'confusion_matrix.png')
-    save_fig(confusion_matrix, OUTPUT_PATH)
+    save_fig(confusion_matrix, output_dir)
 
     class_names = np.unique(y_test)
 
