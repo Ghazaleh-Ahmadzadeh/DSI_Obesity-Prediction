@@ -100,7 +100,7 @@ The linear correlation between the various numerical features in the dataset was
 > As the authors discuss in the [original paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC6710633/) where the dataset was first published, only 23% of the dataset corresponds to data collected from a group of participants of the research study via a web platform. The rest 77% of the datset was synthetically obtained using the [Synthetic Minority Over-sampling Technique (SMOTE)](https://www.jair.org/index.php/jair/article/view/10302) as implemented in the [Weka machine learning tool](https://weka.sourceforge.io/doc.packages/SMOTE/weka/filters/supervised/instance/SMOTE.htmlhttps://weka.sourceforge.io/doc.packages/SMOTE/weka/filters/supervised/instance/SMOTE.html). 
 > 
 > **SMOTE** effectively addresses the class imbalance problem by generating synthetic data within the minority class feature vector space. However, from construction, it **ineffectively handles categorical data** and it requires further tunning of the the nearest neighbours hyperparameter. Furthermore, SMOTE samples new examples by performing interpolations that constrain the generalization of the data.
-
+>
 > The obesity dataset used here has several categorical features and the authors do not specify the number of nearest neighbours they employed or whether or not such hyperparameter was optimized.
 >
 > **To improve the quality of the dataset and machine learning models we propose the following paths:**
