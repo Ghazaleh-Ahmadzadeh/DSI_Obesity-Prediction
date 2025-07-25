@@ -195,7 +195,7 @@ During model validation, [Support Vector Classifier](https://scikit-learn.org/st
 
 
 ### **g. Dashboard for model showcase**
-
+To showcase the predictive power of our model, we developed an interactive web dashboard using Streamlit. This user-friendly interface allows individuals to input their own demographic and lifestyle information, such as age, weight, diet, and physical activity. Upon submission, the dashboard uses our trained LightGBM model to provide an instant obesity risk classification. This turns the model from a "black box" into an interpretable tool, offering actionable, data-driven insights for health management.
 ## **Key Findings**
 ### About the dataset:
 - No outliers were found
