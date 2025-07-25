@@ -16,3 +16,9 @@ if [[ $1 == "preproc" ]]; then
     echo "Running Data Preprocessing"
     python ./data-preprocessing/data-preprocessing.py
 fi
+
+# Run model training
+if [[ $1 == "train" ]]; then
+    echo "Running Model Training"
+    python ./model-training/model-training.py
+fi
