@@ -344,17 +344,5 @@ def main():
     print(f"EDA finished at {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(end_time))}")
 
 
-
-# Load Model
-def load_model(model_path='model.pkl'):
-    with open(model_path, 'rb') as f:
-        model = pickle.load(f)
-    return model
-
-
-# Make Predictions 
-def predict(model, X_test):
-    return model.predict(X_test)
-
 if __name__ == "__main__":
     main()
