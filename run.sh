@@ -16,3 +16,9 @@ if [[ $1 == "preproc" ]]; then
     echo "Running Data Preprocessing"
     python ./data-preprocessing/data-preprocessing.py
 fi
+
+# Run model validation and save results output
+if [[ $1 == "model-validation" ]]; then
+    echo "Running Model Validation"
+    python ./models/model-validation.py
+fi
