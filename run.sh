@@ -27,3 +27,19 @@ if [[ $1 == "model-validation" ]]; then
     echo "Running Model Validation"
     python ./models/model-validation.py
 fi
+
+# Run model visualization app
+if [[ $1 == "model-visualization" ]]; then
+    echo "Running Model Visualization App"
+    streamlit run ./visualization/streamlit_app.py
+fi
+
+# Run the entire pipeline
+if [[ $1 == "pipeline" ]]; then
+    echo "Running the entire pipeline"
+    python ./eda/eda.py && \
+    python ./data-preprocessing/data-preprocessing.py && \
+    python ./model-training/model-training.py && \
+    python ./models/model-validation.py && \
+    echo "Finished running the entire pipeline"
+fi
