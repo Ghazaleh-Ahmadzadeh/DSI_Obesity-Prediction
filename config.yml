@@ -50,6 +50,7 @@ training:
     - Age_Category_Adult
     - Age_Category_Senior
 
+  # TODO: This is not being referenced in the training script yet, we may remove it later
   # Target variable
   target:
     name: obesity_level
