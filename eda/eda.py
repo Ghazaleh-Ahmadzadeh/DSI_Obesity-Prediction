@@ -9,6 +9,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
+from aquarel import load_theme
+from matplotlib import cm
+from matplotlib.colors import ListedColormap
+
 
 RAW_DATA_PATH = './data/raw/'
 EDA_PATH = './data/eda/'
@@ -35,7 +39,7 @@ def plot_hist(
     """
     fig, ax = plt.subplots()
     ax.hist(df[feature])
-    plt.title(feature)
+    plt.title('Feature: {}'.format(feature))
     plt.ylabel("Frequency")
     return fig
 
@@ -61,16 +65,17 @@ def plot_bar(
     else:
         plt.xticks(rotation=45)
     
-    plt.title(feature)
+    plt.ylabel("Frequency")
+    plt.title('Feature: {}'.format(feature))
     return fig
 
 
 def plot_corr_matrix(
-        df: pd.DataFrame,
-        features: list = None,
-        title: str = "Correlation Matrix" 
-        ) -> plt.Figure:
-    """Plot a correlation matrix for a given set of features in the DataFrame.
+    df: pd.DataFrame,
+    features: list = None,
+    title: str = "Correlation Matrix" 
+    ) -> plt.Figure:
+    """Plot a correlation matrix for a given set of features in the DataFrame using matplotlib.
 
     :param df: The DataFrame containing the data.
     :param features: The features to include in the correlation matrix, defaults to None
@@ -81,10 +86,19 @@ def plot_corr_matrix(
         features = df.columns.tolist()
     corr = df[features].corr().to_numpy()
     fig, ax = plt.subplots(figsize=(10, 8))
-    sns.heatmap(corr, annot=True, cmap='coolwarm', fmt=".2f", xticklabels=features, yticklabels=features)
-    plt.xticks(rotation=45, ha='right')
-    plt.yticks(rotation=0)
-    plt.title(title)
+    # Define your own custom colormap for the correlation matrix
+    custom_colors = ["#75d6bc", "#b799e8", "#414546", "#fca964"]
+    custom_cmap = ListedColormap(custom_colors)
+    cax = ax.matshow(corr, cmap=custom_cmap)
+    fig.colorbar(cax)
+    ax.set_xticks(range(len(features)))
+    ax.set_yticks(range(len(features)))
+    ax.set_xticklabels(features, rotation=45, ha='left')
+    ax.set_yticklabels(features)
+    plt.title(title, pad=20)
+    # Annotate correlation values
+    for (i, j), val in np.ndenumerate(corr):
+        ax.text(j, i, f"{val:.2f}", ha='center', va='center', color='black')
     return fig
 
 
@@ -339,10 +353,19 @@ def main():
     save_fig(fig_binary_heatmaps, os.path.join(eda_folderpath, "binary_contingency_heatmaps.png"))
     print("Binary contingency heatmaps saved successfully.")
 
+    
 
     end_time = time.time()
     print(f"EDA finished at {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(end_time))}")
 
-
+    
 if __name__ == "__main__":
+    theme = load_theme("scientific")
+    theme.params['colors']['palette'] = ["#75d6bc", "#b799e8", "#414546", "#fca964"]
+    theme.params['ticks']['width_minor'] = 0.0
+    theme = load_theme("boxy_light").set_overrides({
+    "axes.grid": False
+    })
+    theme.apply()
     main()
+    theme.apply_transforms()
