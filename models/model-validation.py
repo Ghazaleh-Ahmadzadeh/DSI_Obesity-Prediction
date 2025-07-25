@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import shap
 from itertools import cycle
 
-MODEL_PATH = './model-training/'
+MODEL_PATH = './models/'
 OUTPUT_PATH = './data/model_output/'
 
 # Load Model
