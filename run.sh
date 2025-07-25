@@ -21,4 +21,9 @@ fi
 if [[ $1 == "train" ]]; then
     echo "Running Model Training"
     python ./model-training/model-training.py
+    
+# Run model validation and save results output
+if [[ $1 == "model-validation" ]]; then
+    echo "Running Model Validation"
+    python ./models/model-validation.py
 fi
