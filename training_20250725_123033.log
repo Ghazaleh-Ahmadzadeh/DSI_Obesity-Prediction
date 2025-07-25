@@ -1,0 +1,93 @@
+2025-07-25 12:30:33,561 - INFO - ✅ Configuration validation passed
+2025-07-25 12:30:33,561 - INFO - 🚀 Starting LightGBM model training pipeline
+2025-07-25 12:30:33,561 - INFO - Configuration: {'data_path': 'data/preprocessed', 'model_path': 'models', 'n_trials': 100, 'log_level': 'INFO', 'random_state': 42}
+2025-07-25 12:30:33,561 - INFO - Using data_path from config.yml: data/preprocessed
+2025-07-25 12:30:33,561 - INFO - Loading data from: ./data/preprocessed
+2025-07-25 12:30:33,562 - INFO - Loading data from the most recent folder: './data/preprocessed/preprocessed_data_20250725_123021'
+2025-07-25 12:30:33,566 - INFO - Data loaded successfully. Training with 1688 samples.
+2025-07-25 12:30:33,567 - INFO - Features: 21, Classes: 7
+2025-07-25 12:30:33,567 - INFO - ✅ Data loaded successfully - Shape: (1688, 21), Classes: 7
+2025-07-25 12:30:33,569 - INFO - Class distribution:
+NObeyesdad
+0    218
+1    229
+2    281
+3    237
+4    259
+5    232
+6    232
+Name: count, dtype: int64
+2025-07-25 12:30:33,569 - INFO - 🔍 Filtering features based on config.yml
+2025-07-25 12:30:33,569 - INFO - Available features in dataset: ['Height', 'Weight', 'family_history_with_overweight', 'FAVC', 'FCVC', 'NCP', 'CAEC', 'SMOKE', 'CH2O', 'SCC', 'FAF', 'TUE', 'CALC', 'Gender_Male', 'MTRANS_Bike', 'MTRANS_Motorbike', 'MTRANS_Public_Transportation', 'MTRANS_Walking', 'Age_Category_Young Adult', 'Age_Category_Adult', 'Age_Category_Senior']
+2025-07-25 12:30:33,569 - INFO - Selected features from config: ['Weight', 'Height', 'FCVC', 'NCP', 'CH2O', 'FAF', 'TUE', 'CAEC', 'CALC', 'family_history_with_overweight', 'FAVC', 'SMOKE', 'SCC', 'Gender_Male', 'MTRANS_Bike', 'MTRANS_Motorbike', 'MTRANS_Public_Transportation', 'MTRANS_Walking', 'Age_Category_Adult', 'Age_Category_Senior', 'Age_Category_Young Adult']
+2025-07-25 12:30:33,570 - INFO - ✅ Features filtered - Original: 21 features, Selected: 21 features
+2025-07-25 12:30:33,570 - INFO - Final dataset shape: (1688, 21)
+2025-07-25 12:30:33,570 - INFO - 🔧 Parameters to optimize (9): n_estimators (int: 100-1000), max_depth (int: 3-15), learning_rate (float: 0.01-0.3), num_leaves (int: 10-300), min_child_samples (int: 5-100), subsample (float: 0.6-1.0), colsample_bytree (float: 0.6-1.0), reg_alpha (float: 0.0-10.0), reg_lambda (float: 0.0-10.0)
+2025-07-25 12:30:33,570 - INFO - 🔧 Starting hyperparameter optimization with 100 trials
+2025-07-25 12:30:33,594 - INFO - Trial 0: Testing parameters {'n_estimators': 800, 'max_depth': 12, 'learning_rate': 0.21000000000000002, 'num_leaves': 130, 'min_child_samples': 25, 'subsample': 1.0, 'colsample_bytree': 0.6, 'reg_alpha': 0.6000000000000001, 'reg_lambda': 3.8000000000000003, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:30:46,990 - INFO - Trial 0: CV Accuracy = 0.9639 ± 0.0110
+2025-07-25 12:30:46,995 - INFO - Trial 1: Testing parameters {'n_estimators': 200, 'max_depth': 9, 'learning_rate': 0.3, 'num_leaves': 30, 'min_child_samples': 55, 'subsample': 0.9, 'colsample_bytree': 0.7, 'reg_alpha': 9.5, 'reg_lambda': 8.200000000000001, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:30:49,836 - INFO - Trial 1: CV Accuracy = 0.8756 ± 0.0192
+2025-07-25 12:30:49,840 - INFO - Trial 2: Testing parameters {'n_estimators': 350, 'max_depth': 13, 'learning_rate': 0.05, 'num_leaves': 140, 'min_child_samples': 30, 'subsample': 1.0, 'colsample_bytree': 0.7, 'reg_alpha': 0.30000000000000004, 'reg_lambda': 9.4, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:31:10,346 - INFO - Trial 2: CV Accuracy = 0.9633 ± 0.0089
+2025-07-25 12:31:10,351 - INFO - Trial 3: Testing parameters {'n_estimators': 750, 'max_depth': 9, 'learning_rate': 0.2, 'num_leaves': 260, 'min_child_samples': 70, 'subsample': 0.6, 'colsample_bytree': 0.8, 'reg_alpha': 9.700000000000001, 'reg_lambda': 5.6000000000000005, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:31:18,455 - INFO - Trial 3: CV Accuracy = 0.8744 ± 0.0090
+2025-07-25 12:31:18,459 - INFO - Trial 4: Testing parameters {'n_estimators': 900, 'max_depth': 15, 'learning_rate': 0.06999999999999999, 'num_leaves': 120, 'min_child_samples': 65, 'subsample': 0.9, 'colsample_bytree': 0.7, 'reg_alpha': 9.4, 'reg_lambda': 8.700000000000001, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:31:29,614 - INFO - Trial 4: CV Accuracy = 0.8768 ± 0.0178
+2025-07-25 12:31:29,619 - INFO - Trial 5: Testing parameters {'n_estimators': 650, 'max_depth': 4, 'learning_rate': 0.060000000000000005, 'num_leaves': 10, 'min_child_samples': 10, 'subsample': 0.7, 'colsample_bytree': 1.0, 'reg_alpha': 5.9, 'reg_lambda': 1.9000000000000001, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:31:37,901 - INFO - Trial 5: CV Accuracy = 0.9206 ± 0.0095
+2025-07-25 12:31:37,906 - INFO - Trial 6: Testing parameters {'n_estimators': 150, 'max_depth': 14, 'learning_rate': 0.05, 'num_leaves': 70, 'min_child_samples': 30, 'subsample': 1.0, 'colsample_bytree': 0.7, 'reg_alpha': 2.5, 'reg_lambda': 1.7000000000000002, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:31:44,137 - INFO - Trial 6: CV Accuracy = 0.9491 ± 0.0094
+2025-07-25 12:31:44,139 - INFO - Trial 7: Testing parameters {'n_estimators': 400, 'max_depth': 6, 'learning_rate': 0.17, 'num_leaves': 50, 'min_child_samples': 40, 'subsample': 1.0, 'colsample_bytree': 0.9, 'reg_alpha': 2.3000000000000003, 'reg_lambda': 0.8, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:31:49,014 - INFO - Trial 7: CV Accuracy = 0.9502 ± 0.0069
+2025-07-25 12:31:49,017 - INFO - Trial 8: Testing parameters {'n_estimators': 550, 'max_depth': 11, 'learning_rate': 0.11, 'num_leaves': 230, 'min_child_samples': 45, 'subsample': 0.6, 'colsample_bytree': 0.9, 'reg_alpha': 5.7, 'reg_lambda': 0.8, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:31:55,462 - INFO - Trial 8: CV Accuracy = 0.9182 ± 0.0116
+2025-07-25 12:31:55,466 - INFO - Trial 9: Testing parameters {'n_estimators': 550, 'max_depth': 8, 'learning_rate': 0.27, 'num_leaves': 80, 'min_child_samples': 100, 'subsample': 0.6, 'colsample_bytree': 0.6, 'reg_alpha': 2.9000000000000004, 'reg_lambda': 1.5, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:32:02,191 - INFO - Trial 9: CV Accuracy = 0.9443 ± 0.0081
+2025-07-25 12:32:02,232 - INFO - Trial 10: Testing parameters {'n_estimators': 1000, 'max_depth': 11, 'learning_rate': 0.22, 'num_leaves': 200, 'min_child_samples': 10, 'subsample': 0.8, 'colsample_bytree': 0.6, 'reg_alpha': 0.30000000000000004, 'reg_lambda': 4.3, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:32:20,625 - INFO - Trial 10: CV Accuracy = 0.9656 ± 0.0077
+2025-07-25 12:32:20,658 - INFO - Trial 11: Testing parameters {'n_estimators': 1000, 'max_depth': 12, 'learning_rate': 0.23, 'num_leaves': 200, 'min_child_samples': 5, 'subsample': 0.8, 'colsample_bytree': 0.6, 'reg_alpha': 0.30000000000000004, 'reg_lambda': 4.2, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:32:43,250 - INFO - Trial 11: CV Accuracy = 0.9650 ± 0.0058
+2025-07-25 12:32:43,279 - INFO - Trial 12: Testing parameters {'n_estimators': 1000, 'max_depth': 11, 'learning_rate': 0.25, 'num_leaves': 200, 'min_child_samples': 5, 'subsample': 0.8, 'colsample_bytree': 0.6, 'reg_alpha': 0.2, 'reg_lambda': 5.1000000000000005, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:33:13,109 - INFO - Trial 12: CV Accuracy = 0.9656 ± 0.0077
+2025-07-25 12:33:13,139 - INFO - Trial 13: Testing parameters {'n_estimators': 1000, 'max_depth': 11, 'learning_rate': 0.25, 'num_leaves': 300, 'min_child_samples': 15, 'subsample': 0.8, 'colsample_bytree': 0.6, 'reg_alpha': 3.9000000000000004, 'reg_lambda': 6.2, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:33:26,678 - INFO - Trial 13: CV Accuracy = 0.9366 ± 0.0081
+2025-07-25 12:33:26,711 - INFO - Trial 14: Testing parameters {'n_estimators': 850, 'max_depth': 10, 'learning_rate': 0.15000000000000002, 'num_leaves': 200, 'min_child_samples': 5, 'subsample': 0.7, 'colsample_bytree': 0.8, 'reg_alpha': 1.5, 'reg_lambda': 7.2, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:33:40,931 - INFO - Trial 14: CV Accuracy = 0.9579 ± 0.0078
+2025-07-25 12:33:40,964 - INFO - Trial 15: Testing parameters {'n_estimators': 1000, 'max_depth': 7, 'learning_rate': 0.3, 'num_leaves': 190, 'min_child_samples': 25, 'subsample': 0.7, 'colsample_bytree': 0.6, 'reg_alpha': 4.5, 'reg_lambda': 3.5, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:33:51,605 - INFO - Trial 15: CV Accuracy = 0.9212 ± 0.0107
+2025-07-25 12:33:51,639 - INFO - Trial 16: Testing parameters {'n_estimators': 700, 'max_depth': 4, 'learning_rate': 0.16, 'num_leaves': 240, 'min_child_samples': 90, 'subsample': 0.9, 'colsample_bytree': 0.7, 'reg_alpha': 7.4, 'reg_lambda': 2.8000000000000003, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:33:59,245 - INFO - Trial 16: CV Accuracy = 0.8916 ± 0.0113
+2025-07-25 12:33:59,281 - INFO - Trial 17: Testing parameters {'n_estimators': 900, 'max_depth': 13, 'learning_rate': 0.26, 'num_leaves': 170, 'min_child_samples': 15, 'subsample': 0.8, 'colsample_bytree': 0.8, 'reg_alpha': 1.3, 'reg_lambda': 5.1000000000000005, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:34:09,847 - INFO - Trial 17: CV Accuracy = 0.9585 ± 0.0078
+2025-07-25 12:34:09,878 - INFO - Trial 18: Testing parameters {'n_estimators': 650, 'max_depth': 6, 'learning_rate': 0.19, 'num_leaves': 280, 'min_child_samples': 40, 'subsample': 0.8, 'colsample_bytree': 0.6, 'reg_alpha': 3.3000000000000003, 'reg_lambda': 6.7, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:34:18,875 - INFO - Trial 18: CV Accuracy = 0.9390 ± 0.0125
+2025-07-25 12:34:18,903 - INFO - Trial 19: Testing parameters {'n_estimators': 900, 'max_depth': 10, 'learning_rate': 0.01, 'num_leaves': 230, 'min_child_samples': 20, 'subsample': 0.7, 'colsample_bytree': 0.8, 'reg_alpha': 1.6, 'reg_lambda': 4.7, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:35:11,281 - INFO - Trial 19: CV Accuracy = 0.9520 ± 0.0055
+2025-07-25 12:35:11,327 - INFO - Trial 20: Testing parameters {'n_estimators': 400, 'max_depth': 15, 'learning_rate': 0.23, 'num_leaves': 100, 'min_child_samples': 70, 'subsample': 0.9, 'colsample_bytree': 0.9, 'reg_alpha': 7.2, 'reg_lambda': 3.0, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:35:16,329 - INFO - Trial 20: CV Accuracy = 0.8981 ± 0.0097
+2025-07-25 12:35:16,360 - INFO - Trial 21: Testing parameters {'n_estimators': 1000, 'max_depth': 12, 'learning_rate': 0.22, 'num_leaves': 170, 'min_child_samples': 5, 'subsample': 0.8, 'colsample_bytree': 0.6, 'reg_alpha': 0.0, 'reg_lambda': 4.3, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:36:57,846 - INFO - Trial 21: CV Accuracy = 0.9686 ± 0.0049
+2025-07-25 12:36:57,911 - INFO - Trial 22: Testing parameters {'n_estimators': 1000, 'max_depth': 11, 'learning_rate': 0.23, 'num_leaves': 170, 'min_child_samples': 5, 'subsample': 0.8, 'colsample_bytree': 0.6, 'reg_alpha': 0.1, 'reg_lambda': 5.6000000000000005, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:37:32,154 - INFO - Trial 22: CV Accuracy = 0.9662 ± 0.0069
+2025-07-25 12:37:32,195 - INFO - Trial 23: Testing parameters {'n_estimators': 850, 'max_depth': 13, 'learning_rate': 0.27, 'num_leaves': 160, 'min_child_samples': 5, 'subsample': 0.8, 'colsample_bytree': 0.7, 'reg_alpha': 1.2000000000000002, 'reg_lambda': 5.9, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:37:43,147 - INFO - Trial 23: CV Accuracy = 0.9579 ± 0.0069
+2025-07-25 12:37:43,178 - INFO - Trial 24: Testing parameters {'n_estimators': 950, 'max_depth': 10, 'learning_rate': 0.13, 'num_leaves': 180, 'min_child_samples': 20, 'subsample': 0.7, 'colsample_bytree': 0.6, 'reg_alpha': 0.0, 'reg_lambda': 7.1000000000000005, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:38:48,798 - INFO - Trial 24: CV Accuracy = 0.9680 ± 0.0115
+2025-07-25 12:38:48,844 - INFO - Trial 25: Testing parameters {'n_estimators': 900, 'max_depth': 8, 'learning_rate': 0.13, 'num_leaves': 150, 'min_child_samples': 20, 'subsample': 0.7, 'colsample_bytree': 0.7, 'reg_alpha': 2.0, 'reg_lambda': 7.6000000000000005, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:39:01,910 - INFO - Trial 25: CV Accuracy = 0.9473 ± 0.0074
+2025-07-25 12:39:01,944 - INFO - Trial 26: Testing parameters {'n_estimators': 800, 'max_depth': 10, 'learning_rate': 0.11, 'num_leaves': 180, 'min_child_samples': 35, 'subsample': 0.7, 'colsample_bytree': 0.6, 'reg_alpha': 1.0, 'reg_lambda': 6.7, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:39:19,762 - INFO - Trial 26: CV Accuracy = 0.9603 ± 0.0102
+2025-07-25 12:39:19,801 - INFO - Trial 27: Testing parameters {'n_estimators': 950, 'max_depth': 12, 'learning_rate': 0.18000000000000002, 'num_leaves': 110, 'min_child_samples': 15, 'subsample': 0.9, 'colsample_bytree': 1.0, 'reg_alpha': 3.2, 'reg_lambda': 10.0, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:39:30,944 - INFO - Trial 27: CV Accuracy = 0.9413 ± 0.0109
+2025-07-25 12:39:30,975 - INFO - Trial 28: Testing parameters {'n_estimators': 750, 'max_depth': 14, 'learning_rate': 0.14, 'num_leaves': 160, 'min_child_samples': 55, 'subsample': 0.8, 'colsample_bytree': 0.6, 'reg_alpha': 2.0, 'reg_lambda': 7.800000000000001, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:39:43,245 - INFO - Trial 28: CV Accuracy = 0.9490 ± 0.0098
+2025-07-25 12:39:43,289 - INFO - Trial 29: Testing parameters {'n_estimators': 800, 'max_depth': 12, 'learning_rate': 0.2, 'num_leaves': 220, 'min_child_samples': 25, 'subsample': 0.7, 'colsample_bytree': 0.6, 'reg_alpha': 0.0, 'reg_lambda': 6.5, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:40:35,326 - INFO - Trial 29: CV Accuracy = 0.9680 ± 0.0098
+2025-07-25 12:40:35,371 - INFO - Trial 30: Testing parameters {'n_estimators': 800, 'max_depth': 14, 'learning_rate': 0.11, 'num_leaves': 220, 'min_child_samples': 30, 'subsample': 0.6, 'colsample_bytree': 0.7, 'reg_alpha': 0.9, 'reg_lambda': 8.700000000000001, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:40:53,317 - INFO - Trial 30: CV Accuracy = 0.9597 ± 0.0079
+2025-07-25 12:40:53,357 - INFO - Trial 31: Testing parameters {'n_estimators': 950, 'max_depth': 12, 'learning_rate': 0.21000000000000002, 'num_leaves': 130, 'min_child_samples': 20, 'subsample': 0.7, 'colsample_bytree': 0.6, 'reg_alpha': 0.0, 'reg_lambda': 6.5, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:42:04,966 - INFO - Trial 31: CV Accuracy = 0.9698 ± 0.0093
+2025-07-25 12:42:05,033 - INFO - Trial 32: Testing parameters {'n_estimators': 850, 'max_depth': 12, 'learning_rate': 0.2, 'num_leaves': 130, 'min_child_samples': 25, 'subsample': 0.7, 'colsample_bytree': 0.6, 'reg_alpha': 0.7000000000000001, 'reg_lambda': 6.6000000000000005, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}
+2025-07-25 12:42:24,211 - INFO - Trial 32: CV Accuracy = 0.9650 ± 0.0107
+2025-07-25 12:42:24,260 - INFO - Trial 33: Testing parameters {'n_estimators': 950, 'max_depth': 13, 'learning_rate': 0.18000000000000002, 'num_leaves': 140, 'min_child_samples': 20, 'subsample': 0.7, 'colsample_bytree': 0.7, 'reg_alpha': 0.0, 'reg_lambda': 7.300000000000001, 'verbosity': -1, 'random_state': 42, 'objective': 'multiclass', 'num_class': 7}

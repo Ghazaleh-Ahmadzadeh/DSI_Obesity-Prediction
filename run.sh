@@ -10,3 +10,21 @@ if [[ $1 == "eda" ]]; then
     echo "Running EDA"
     python ./eda/eda.py
 fi
+
+if [[ $1 == "preproc" ]]; then
+    echo "Running Data Preprocessing"
+    python ./data-preprocessing/data-preprocessing.py
+fi
+
+# Run model training
+if [[ $1 == "train" ]]; then
+    echo "Running Model Training"
+    python ./model-training/model-training.py
+fi
+
+# Run Streamlit app
+if [[ $1 == "app" ]]; then
+    echo "Starting Streamlit Application"
+    cd visualization
+    streamlit run streamlit_app.py
+fi
