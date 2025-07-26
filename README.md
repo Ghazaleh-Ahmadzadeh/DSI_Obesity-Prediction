@@ -30,7 +30,7 @@ Obesity is a diagnosis given to individuals with excessive body fat and calculat
 
 
 <div align="center">
-  <img src="docs/figures/fig1-obesity.png" alt="Fig 1. Percentage of Adults with obesity (BMI ≥ 30kg/m²) across selected countries" style="width:60%;">
+  <img src="assets/figures/fig1-obesity.png" alt="Fig 1. Percentage of Adults with obesity (BMI ≥ 30kg/m²) across selected countries" style="width:60%;">
   <div style="text-align:justify; max-width:600px; margin:auto;">
     <b>Fig 1.</b> Percentage of Adults with obesity (BMI ≥ 30kg/m<sup>2</sup>) across selected countries (Data Tables | World Obesity Federation Global Obesity Observatory, 2025).
   </div>
@@ -78,7 +78,7 @@ From exploratory data analysis, it was found that the target classes are not hea
 
 
 <div align="center">
-  <img src="docs/figures/fig2-target-classes.png" alt="Fig 2. Distribution of classes of the target." style="width:60%;height:60%">
+  <img src="assets/figures/fig2-target-classes.png" alt="Fig 2. Distribution of classes of the target." style="width:60%;height:60%">
   <div style="text-align:justify; max-width:600px; margin:auto;">
     <b>Fig 2.</b> Distribution of classes of the target.
   </div>
@@ -88,7 +88,7 @@ From exploratory data analysis, it was found that the target classes are not hea
 The linear correlation between the various numerical features in the dataset was evaluated, showing no strong dependency between features (see [Figure 3](#fig3)). 
 
 <div align="center">
-  <img src="docs/figures/fig3-corr.png" alt="Fig 3. Linear correlation between numerical features" style="width:60%;height:60%">
+  <img src="assets/figures/fig3-corr.png" alt="Fig 3. Linear correlation between numerical features" style="width:60%;height:60%">
   <div style="text-align:justify; max-width:600px; margin:auto;">
     <b>Fig 3.</b> Linear correlation between numerical features.
   </div>
@@ -196,7 +196,7 @@ During model validation, [Support Vector Classifier](https://scikit-learn.org/st
 Using the `mutual-info-classif` method implemented in scikit-learn, a feature selection was performed. From it, it was determined that some features, , seem to have no impact on the accuracy of the model. Later on, SHAP confirmed these initial obsrvations (see [Figure 4](#figure4)).
 
 <div align="center">
-  <img src="docs/figures/fig4-shap.png" alt="Fig 4. SHAP analysis of the overall contribution of each feature on the accuracy of the LightGBM model" style="width:60%;height:60%">
+  <img src="assets/figures/fig4-shap.png" alt="Fig 4. SHAP analysis of the overall contribution of each feature on the accuracy of the LightGBM model" style="width:60%;height:60%">
   <div style="text-align:justify; max-width:600px; margin:auto;">
     <b>Fig 4.</b> SHAP analysis of the overall contribution of each feature on the accuracy of the LightGBM model.
   </div>
@@ -206,9 +206,9 @@ Using the `mutual-info-classif` method implemented in scikit-learn, a feature se
 To showcase the predictive power of our model, we developed an interactive web dashboard using Streamlit (see [Fig 5](#fig5)). This user-friendly interface allows individuals to input their own demographic and lifestyle information, such as age, weight, diet, and physical activity. Upon submission, the dashboard uses our trained LightGBM model to provide an instant obesity risk classification. This turns the model from a "black box" into an interpretable tool, offering actionable, data-driven insights for health management.
 
 <div align="center">
-  <img src="docs/figures/fig5-dashboard.png" alt="Fig 5. Interactive web dashboard to predict obesity risk using non-invasive information." style="width:60%;height:60%">
+  <img src="assets/figures/fig5-dashboard.gif" alt="Fig 5. Interactive web dashboard to predict obesity risk using non-invasive information." style="width:60%;height:60%">
   <div style="text-align:justify; max-width:600px; margin:auto;">
-    <b>Fig 5.</b> Fig 5. Interactive web dashboard to predict obesity risk using non-invasive information about the lifestyle and health status of a given individual.
+    <b>Fig 5.</b> Interactive web dashboard to predict obesity risk using non-invasive information about the lifestyle and health status of a given individual. (Animated demo.)
   </div>
 </div><br />
 
