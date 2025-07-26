@@ -21,9 +21,9 @@ This project focuses on an in-depth analysis of the “Estimation of Obesity Lev
 
 * Maria Rossano ([rossanot](https://github.com/rossanot))  
 * Reshma Rajendran ([EzhavaReshma](https://github.com/EzhavaReshma))
-* Ghazaleh Ahmadzadeh ([Ghazaleh-Ahmadzadeh](https://github.com/Ghazaleh-Ahmadzadeh))  
+* Ghazaleh Ahmadzadeh ([Ghazaleh-Ahmadzadeh](https://github.com/Ghazaleh-Ahmadzadeh)) ([Video Reflection](https://www.loom.com/share/422a53b13bd443528affa7b9f55d4001?sid=b34f9cbf-1cad-47a5-b596-e6ef53c36267) 
 * Melanie Cheung See Kit ([melcsk](https://github.com/melcsk))
-* Cristian Nicolas Cordova Puglianini ([NicoForce](https://github.com/NicoForce)) 
+* Cristian Nicolas Cordova Puglianini ([NicoForce](https://github.com/NicoForce)) ([Video Reflection](https://www.youtube.com/watch?v=79O5144Jpnc))
 
 ## **Introduction**
 Obesity is a diagnosis given to individuals with excessive body fat and calculated Body Mass Index (BMI) of greater or equal to 30kg/m<sup>2</sup>. It often becomes a long-term and chronic health condition that is associated with increased risks of other complications, such as type 2 diabetes, heart disease, and cancer. Thus, patients’ treatments have become a heavy burden to the healthcare system. In the Americas region, obesity is a prevalent condition among adults (Fig. 1) and is estimated to cost 985.99 billion USD, mostly in medical expenses ([Okunogbe et al., 2022, e009773](https://pubmed.ncbi.nlm.nih.gov/36130777/)). 
@@ -187,10 +187,10 @@ During model validation, [Support Vector Classifier](https://scikit-learn.org/st
 #### **Table 4.** Model Validation Experimental Details
 | **Algorithm** | SVC | SVC | LightGBM | LightGBM |
 |---|---|---|---|---|
-| **Best parameters** | `{'svc__C': 4, 'svc__kernel': 'poly', 'svc__gamma': 'auto'}` | `{'select__k': 8, 'svc__C': 6, 'svc__kernel': 'poly', 'svc__gamma': 'scale'}` | | |
-| **Other** | | feature selection `SelectKBest` 'Height', 'Weight', 'family_history_with_overweight', 'FAVC', 'FCVC', 'CAEC', 'CALC', 'Gender_Male') | | |
-| **Train Accuracy** | 0.998 | 0.983 | | |
-| **Test Accuracy** | 0.967 | 0.962 | | |
+| **Best parameters** | `{'svc__C': 4, 'svc__kernel': 'poly', 'svc__gamma': 'auto'}` | `{'select__k': 8, 'svc__C': 6, 'svc__kernel': 'poly', 'svc__gamma': 'scale'}` | `{'n_estimators': 168, 'learning_rate': 0.072, 'num_leaves': 5, 'max_depth': 6, 'min_child_samples': 255, 'reg_alpha': 0.36, 'subsample': 0.72, 'subsample_freq': 1, 'boosting_type': 'gbdt', 'objective': 'multiclass', 'num_class': 7}` | `{'n_estimators': 170, 'learning_rate': 0.079, 'num_leaves': 5, 'max_depth': 6, 'min_child_samples': 255, 'reg_alpha': 0.36, 'subsample': 0.72, 'subsample_freq': 1, 'boosting_type': 'gbdt', 'objective': 'multiclass', 'num_class': 7}` |
+| **Other** | | feature selection `SelectKBest` 'Height', 'Weight', 'family_history_with_overweight', 'FAVC', 'FCVC', 'CAEC', 'CALC', 'Gender_Male') | feature selection columns (Weight, Height, Gender_Male, FCVC, TUE, CH2O, NCP, FAF, CAEC, CALC, family_history_with_overweight, FAVC) | feature selection columns (Weight, Height, Gender_Male, FCVC, TUE, CH2O, NCP, FAF, CAEC, CALC, family_history_with_overweight, FAVC) |
+| **Train Accuracy** | 0.998 | 0.983 |0.9698 | 0.9781 |
+| **Test Accuracy** | 0.967 | 0.962 | 0.9480 | 0.9527 |
 
 ### **f. Feature Analysis**
 Using the `mutual-info-classif` method implemented in scikit-learn, a feature selection was performed. From it, it was determined that some features, , seem to have no impact on the accuracy of the model. Later on, SHAP confirmed these initial obsrvations (see [Figure 4](#figure4)).
