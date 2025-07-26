@@ -96,24 +96,17 @@ def save_text_output(
         file_path: str,
         train_accuracy: float,
         test_accuracy: float,
-        output: str,
-        filename: str = 'model_output.txt'
+        output: str
         ) -> None:
     """ Save accuracy scores and classification report to text file.
     """
-    # Ensure the directory exists, if not, create it
-    os.makedirs(file_path, exist_ok=True)
-    
-    # Combine directory path and file name to form full file path
-    full_file_path = os.path.join(file_path, filename)
-
     try:
-        with open(filename, 'w') as f:
+        with open(file_path, 'w') as f:
             f.write(f"Train Accuracy Score: {train_accuracy:.4f}\n\n")
             f.write(f"Test Accuracy Score: {test_accuracy:.4f}\n\n")
             f.write("Classification Report:\n")
             f.write(output)
-        print(f"Output successfully saved to {full_file_path}")
+        print(f"Output successfully saved to {file_path}")
         
     except Exception as e:
         print(f"Error saving output: {e}")
@@ -338,7 +331,9 @@ def main():
     report = classification_report(y_test, y_pred_test)
 
     # Save accuracy scores and classification report to text file
-    save_text_output(output_dir, train_accuracy, test_accuracy, report, filename = "model_results.txt")
+    scoring_report_filename = 'model_output.txt'
+    scoring_report_path = os.path.join(output_dir, scoring_report_filename)
+    save_text_output(scoring_report_path, train_accuracy, test_accuracy, report)
 
     # Generate confusion matrix
     cm = generate_confusion_matrix(y_test, y_pred_test)
