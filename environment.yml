@@ -3,11 +3,20 @@ channels:
   - conda-forge
 dependencies:
   - python=3.13
-  - lightgbm
-  - optuna
-  - scikit-learn
-  - pandas
-  - numpy
-  - pyyaml
+  - pip
   - pip:
-    - -r requirements.txt
+    - lightgbm
+    - optuna
+    - scikit-learn
+    - pandas
+    - numpy
+    - pyyaml
+    - joblib
+    - streamlit
+    - plotly
+    - matplotlib
+    - seaborn
+    - SQLAlchemy
+    - shap
+    - aquarel
+    - ipython

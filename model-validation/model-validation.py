@@ -1,16 +1,37 @@
 import os
+from pathlib import Path
 import pickle
 from datetime import datetime
 import pandas as pd
 import numpy as np
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay, roc_curve, auc
+from sklearn.metrics import (
+    accuracy_score,
+    classification_report,
+    confusion_matrix,
+    roc_curve,
+    auc
+    )
 from sklearn.preprocessing import label_binarize
 import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
+import seaborn as sns
 import shap
 from itertools import cycle
 
 MODEL_PATH = './models/'
 OUTPUT_PATH = './data/model_output/'
+MODEL_FILENAME = 'lgbm_model_20250725_102140.pkl'
+
+custom_colors = [
+    "#b7eeee",
+    "#c6e5ff",
+    "#b4a0f7",
+    "#fbccf6",
+    "#f8bdbd",
+    "#fef6a2",
+    "#B0B0B0"
+    ]
+custom_cmap = ListedColormap(custom_colors)
 
 # Load Model
 def load_model(model_path='model.pkl'):
@@ -19,9 +40,40 @@ def load_model(model_path='model.pkl'):
     return model
 
 
+def load_data(
+        file_path: str
+        ) -> pd.DataFrame:
+    """Load data from a CSV file
+    
+    :param file_path: Path to the CSV file
+    :return: DataFrame containing the loaded data
+    """
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"File not found: {file_path}")
+    return pd.read_csv(file_path)
+
+
+def get_most_recent_datadir(
+        dir: str = './data/preprocessed'
+        ) -> str:
+    """Get the most recent subdirectory in a given directory
+    """
+    all_subdirs = []
+    for d in os.listdir(dir):
+        _path = os.path.join(dir, d)
+        if os.path.isdir(_path):
+            all_subdirs.append(_path)
+    latest = max(all_subdirs, key=os.path.getmtime)
+    return '/'.join(Path(latest).parts)
+
+
 # Make Predictions 
-def predict(model, X_test):
+def predict(
+        model,
+        X_test: np.array
+        ) -> np.array:
     return model.predict(X_test)
+
 
 def calculate_accuracy(y_true: pd.Series, 
                        y_pred: pd.Series
@@ -30,66 +82,66 @@ def calculate_accuracy(y_true: pd.Series,
     """
     return accuracy_score(y_true.values.ravel(), y_pred)
 
-def generate_classification_report(y_test: pd.Series, 
-                                   y_pred: pd.Series
-                                   ) -> str:
+
+def generate_classification_report(
+        y_test: pd.Series,
+        y_pred: pd.Series
+        ) -> str:
     """Generate classification report using sklearn.metrics.
     """
     return classification_report(y_test.values.ravel(), y_pred)
 
-def save_text_output(file_path: str,
-                     train_accuracy: float,
-                     test_accuracy: float,
-                     output: str,
-                     filename: str = 'model_output.txt'
-                     ) -> None:
 
+def save_text_output(
+        file_path: str,
+        train_accuracy: float,
+        test_accuracy: float,
+        output: str
+        ) -> None:
     """ Save accuracy scores and classification report to text file.
     """
-    # Ensure the directory exists, if not, create it
-    os.makedirs(file_path, exist_ok=True)
-    
-    # Combine directory path and file name to form full file path
-    full_file_path = os.path.join(file_path, filename)
-
     try:
-        with open(filename, 'w') as f:
+        with open(file_path, 'w') as f:
             f.write(f"Train Accuracy Score: {train_accuracy:.4f}\n\n")
             f.write(f"Test Accuracy Score: {test_accuracy:.4f}\n\n")
             f.write("Classification Report:\n")
             f.write(output)
-        print(f"Output successfully saved to {full_file_path}")
+        print(f"Output successfully saved to {file_path}")
         
     except Exception as e:
         print(f"Error saving output: {e}")
 
-def generate_confusion_matrix(y_test: pd.Series, 
-                              y_pred: pd.Series
-                              ) -> None:
+
+def generate_confusion_matrix(
+        y_test: pd.Series, 
+        y_pred: pd.Series
+        ) -> None:
     """Generates and returns a confusion matrix.
     """
     return confusion_matrix(y_test, y_pred)
 
+
 def plot_confusion_matrix(
-        cm: pd.DataFrame, 
-        labels: list,
-        filename: str = 'confusion_matrix.png'
+        cm: pd.DataFrame
         ) -> plt.Figure:
     """ Plot the confusion matrix using sklearn.metrics
     """
-    display = ConfusionMatrixDisplay(confusion_matrix = cm, 
-                                     display_labels = labels)
-    display.plot(cmap = 'coolwarm')
-    plt.show()
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(cm, annot=True, fmt='d', cmap=custom_cmap, 
+                xticklabels=[f'Class {i}' for i in range(len(cm))],
+                yticklabels=[f'Class {i}' for i in range(len(cm))])
+    plt.title('Confusion Matrix')
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    return plt.gcf()
+
 
 def plot_roc_curve(model: object, 
                    X_test: pd.DataFrame, 
                    y_test: pd.Series, 
-                   class_names: list,
-                   filename: str = 'roc_curve.png'
+                   class_names: list
                    ) -> plt.Figure:
-    """
-    Plot Receiver Operating Characteristic (ROC) curves for multi-class classification.
+    """Plot Receiver Operating Characteristic (ROC) curves for multi-class classification.
 
     Parameters:
     model (sklearn model): sklearn model
@@ -157,7 +209,8 @@ def plot_roc_curve(model: object,
     plt.title(f"ROC Curves for {model_name} (OvR macro & micro avg)")
     plt.legend(loc = "lower right")
 
-    plt.show()
+    return plt.gcf()
+
 
 # Run SHAP analysis
 def calculate_shap_values(model, 
@@ -171,15 +224,58 @@ def calculate_shap_values(model,
     shap_values = explainer.shap_values(X_train)
     return shap_values
 
-def shap_plot_summary(shap_values: pd.DataFrame, X_train):
+
+def shap_plot_summary(
+        shap_values: pd.DataFrame,
+        X_test: pd.DataFrame
+        ) -> plt.Figure:
     """ Plot a SHAP summary to visualize feature importance. 
     """
-    shap.summary_plot(shap_values, X_train)
+    plt.figure(figsize=(10, 6))
+    shap.initjs()
+    shap.summary_plot(
+        shap_values,
+        X_test,
+        plot_type="bar",
+        class_names=[f'Obesity Level {i}' for i in range(7)],
+        show=False
+        )
+    plt.title("SHAP Summary Bar Plot")
+    plt.tight_layout()
+    return plt.gcf()
 
-def plot_shap_bar(shap_values, X_train, filename: str = 'shap_bar.png'):
+
+def shap_sample_explanation(
+        model,
+        X_test: pd.DataFrame,
+        sample_id: int = 0
+        ) -> plt.Figure:
     """ Plot a bar plot for SHAP values to visualize feature impact. 
     """
-    shap.summary_plot(shap_values, X_train, plot_type="bar")
+    explainer = shap.Explainer(model)
+    shap_values = explainer(X_test)
+    predicted_class = model.predict(X_test)[sample_id]
+    prediction_proba = model.predict_proba(X_test)[sample_id]
+
+    plt.figure(figsize=(10, 6))
+    # shap.initjs()
+    shap.plots.waterfall(
+        shap_values[0, :, predicted_class],
+        show=False
+        )
+    
+    # Add in-plot text for prediction and probabilities
+    plt.gcf().text(
+        0.7, 0.25,
+        f"Sample {sample_id} prediction: Class {predicted_class}\nClass probabilities: {np.round(prediction_proba, 2)}",
+        fontsize=10,
+        verticalalignment='top',
+        bbox=dict(facecolor='white', alpha=0.7, edgecolor='gray')
+    )
+    plt.title(f"SHAP Explanation for Sample {sample_id} - Predicted Class: {predicted_class} (Probability: {prediction_proba[predicted_class]:.2f})")
+    plt.tight_layout()
+    return plt.gcf()
+
 
 # Save figure
 def save_fig(
@@ -196,50 +292,77 @@ def save_fig(
 
 
 def main():
-    MODEL_PATH = './model-training/'
-    OUTPUT_PATH = './data/model_validation_output/'
-
     # Create a Unique Directory for Model Validation Output Files
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_dir = os.path.join(OUTPUT_PATH, f"model__validation_output_{timestamp}")
+
+    print('Starting Model Validation...')
+    MODEL_PATH = './models'
+    OUTPUT_PATH = './data/model_validation_output/'
+    output_dir = os.path.join(OUTPUT_PATH, f"{timestamp}")
+
+    # Ensure the output directory exists
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir, exist_ok=True)
+    print(f"Created directory for output files: '{output_dir}/'")
 
     # Load model
-    load_model(MODEL_PATH)
+    model = load_model(os.path.join(MODEL_PATH, MODEL_FILENAME))
+
+    # Load test data
+    data_dir = get_most_recent_datadir()
+    X_train_path = os.path.join(data_dir, 'X_train_scaled.csv')
+    y_train_path = os.path.join(data_dir, 'y_train_scaled.csv')
+    X_test_path = os.path.join(data_dir, 'X_test_scaled.csv')
+    y_test_path = os.path.join(data_dir, 'y_test_scaled.csv')
+    X_train = load_data(X_train_path)
+    y_train = load_data(y_train_path)
+    X_test = load_data(X_test_path)
+    y_test = load_data(y_test_path)
 
     # Make predictions
-    y_pred = predict(model, X_test)
-
-    os.makedirs(output_dir, exist_ok=True)
-    print(f"Created directory for output files: '{output_dir}/'")
+    y_pred_train = predict(model, X_train)
+    y_pred_test = predict(model, X_test)
 
     # Calculate training and test accuracy
     train_accuracy = calculate_accuracy(y_train, y_pred_train)
     test_accuracy = calculate_accuracy(y_test, y_pred_test)
 
     # Generate classification report
-    report = classification_report(y_test, y_pred)
+    report = classification_report(y_test, y_pred_test)
 
     # Save accuracy scores and classification report to text file
-    save_text_output(output_dir, train_accuracy, test_accuracy, report, filename = "model_results.txt")
+    scoring_report_filename = 'model_output.txt'
+    scoring_report_path = os.path.join(output_dir, scoring_report_filename)
+    save_text_output(scoring_report_path, train_accuracy, test_accuracy, report)
 
     # Generate confusion matrix
-    cm = generate_confusion_matrix(y_test, y_pred)
+    cm = generate_confusion_matrix(y_test, y_pred_test)
 
     # Display and save confusion matrix
-    confusion_matrix = plot_confusion_matrix(cm, labels, filename = 'confusion_matrix.png')
-    save_fig(confusion_matrix, output_dir)
+    confusion_matrix_file_name = os.path.join(output_dir, 'confusion_matrix.png')
+    confusion_matrix = plot_confusion_matrix(cm)
+    save_fig(confusion_matrix, confusion_matrix_file_name)
 
     class_names = np.unique(y_test)
 
     # Plot and save ROC curve
-    roc_curve = plot_roc_curve(model, X_test, y_test, class_names, filename = 'roc_curve.png')
-    save_fig(roc_curve, OUTPUT_PATH)
+    roc_curve_file_name = os.path.join(output_dir, 'roc_curve.png')
+    roc_curve = plot_roc_curve(model, X_test, y_test, class_names)
+    save_fig(roc_curve, roc_curve_file_name)
     
     # Run SHAP analysis
-    shap_values = calculate_shap_values(model, X_train)
-    shap_plot_summary(shap_values, X_train)
-    shap_bar = plot_shap_bar(shap_values, X_train, filename = 'shap_bar.png')
-    save_fig(shap_bar, OUTPUT_PATH)
+    shap_values = calculate_shap_values(model, X_test)
+
+    shap_summary_file_name = os.path.join(output_dir, 'shap_summary.png')
+    shap_summary = shap_plot_summary(shap_values, X_test)
+    save_fig(shap_summary, shap_summary_file_name)
+
+    shap_exp_file_name = os.path.join(output_dir, 'shap_explanation.png')
+    shap_exp = shap_sample_explanation(model, X_test, sample_id=0)
+    save_fig(shap_exp, shap_exp_file_name)
+
+    print("Model validation completed successfully.")
+    print(f"Results saved to: {output_dir}")
 
 # Run the program
 if __name__ == "__main__":
