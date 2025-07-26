@@ -1,18 +1,19 @@
 # **The Predictive Health Compass: Shifting from Reactive Treatment to Proactive Prevention of Obesity**
 
-Data Science/ Machine Learning Software Foundations Certificate Program, Data Sciences Institute, University of Toronto
+[*Data Science/ Machine Learning Software Foundations Certificate Program, Data Sciences Institute, University of Toronto*](https://certificates.datasciences.utoronto.ca/)
 
-Cohort 6 - Team ML #6
+**Cohort 6 - Team ML #6**
 
 This project focuses on an in-depth analysis of the “Estimation of Obesity Levels Based on Eating Habits and Physical Condition” dataset using Machine Learning models to determine which dietary and lifestyle attributes are the most significant predictors of obesity levels. Our proposal outlines the development of the ***Predictive Health Compass*** platform to identify individuals at risk of developing severe obesity, thereby enabling targeted preventative measures to reduce associated medical healthcare costs.
 
 ## **Contents**
-* [Team Members](#team-members)
+* [Contributors](#main-contributors)
 * [Introduction](#introduction)
-* [Objectives](#objectives)
+  * [Business Motivation](#business-motivation)
 * [Methodology](#methodology)
 * [Key Findings](#key-findings)
-* [Conclusion](#conclusion)
+* [Contributors' experience outcomes](#videos)
+* [Future Work](#future-work)
 * [Folder Structure](#folder-structure)
 * [How to use this repo](#how-to-use-this-repo)
   
@@ -93,9 +94,9 @@ The linear correlation between the various numerical features in the dataset was
   </div>
 </div><br />
 
-
+#### **Dataset quality**
 > [!IMPORTANT]  
-> **Dataset quality**
+> 
 >
 > As the authors discuss in the [original paper](https://pmc.ncbi.nlm.nih.gov/articles/PMC6710633/) where the dataset was first published, only 23% of the dataset corresponds to data collected from a group of participants of the research study via a web platform. The remaining 77% of the datset was synthetically obtained using the [Synthetic Minority Over-sampling Technique (SMOTE)](https://www.jair.org/index.php/jair/article/view/10302) as implemented in the [Weka machine learning tool](https://weka.sourceforge.io/doc.packages/SMOTE/weka/filters/supervised/instance/SMOTE.htmlhttps://weka.sourceforge.io/doc.packages/SMOTE/weka/filters/supervised/instance/SMOTE.html). 
 > 
@@ -191,51 +192,83 @@ During model validation, [Support Vector Classifier](https://scikit-learn.org/st
 | **Train Accuracy** | 0.998 | 0.983 | | |
 | **Test Accuracy** | 0.967 | 0.962 | | |
 
-### **f. Feature analysis**
+### **f. Feature Analysis**
+Using the `mutual-info-classif` method implemented in scikit-learn, a feature selection was performed. From it, it was determined that some features, , seem to have no impact on the accuracy of the model. Later on, SHAP confirmed these initial obsrvations (see [Figure 4](#figure4)).
 
+<div align="center">
+  <img src="docs/figures/fig4-shap.png" alt="Fig 4. SHAP analysis of the overall contribution of each feature on the accuracy of the LightGBM model" style="width:60%;height:60%">
+  <div style="text-align:justify; max-width:600px; margin:auto;">
+    <b>Fig 4.</b> SHAP analysis of the overall contribution of each feature on the accuracy of the LightGBM model.
+  </div>
+</div><br />
 
 ### **g. Dashboard for model showcase**
 To showcase the predictive power of our model, we developed an interactive web dashboard using Streamlit. This user-friendly interface allows individuals to input their own demographic and lifestyle information, such as age, weight, diet, and physical activity. Upon submission, the dashboard uses our trained LightGBM model to provide an instant obesity risk classification. This turns the model from a "black box" into an interpretable tool, offering actionable, data-driven insights for health management.
+
 ## **Key Findings**
 ### About the dataset:
+- A large portion of the dataset was synthesized 
 - No outliers were found
 - Most of the numerical features show a Gaussian distribution
-- Target classes are 
-
+- Target classes are not significantly imbalanced
 ### About model training
+- It was overfitting  
 
 
-## **Conclusion**
+## **Videos**
+* [Maria Rossano]()  
+* [Reshma Rajendran]()
+* [Ghazaleh Ahmadzadeh]()  
+* [Melanie Cheung See Kit]()
+* [Cristian Nicolas Cordova Puglianini]() 
+
+## **Future work**
+- As it was discussed in the [Introduction](#dataset-quality), to prevent overfitting, the dataset could be diversified by integrating examples from other datasets or replacing the synthetic data portion by data generated using GenAI means
+- Integrate our solution with Electronic Medical Records systems for real-time insights and predictions
+- Develop a patient facing app that could allow users to track their obesity risk and provide them with personalized lifestyle recommendations
+
 
 ## **Folder Structure**
+The project folder contains the core modeling pipeline as well as some tool and environment files. The main components of the pipeline are indicated with a `*`.
 
 ```bash
 .
+├───assets
+│   └───figures
 ├───data
-│   ├───eda
-│   ├───preprocessed
-│   └───raw
-├───docs
-│   └───figures
+│   ├───eda
+│   ├───preprocessed
+│   └───raw
+├───data-preprocessing*
+├───eda*
 ├───experiments
-│   ├───model-exp-team-member.py
-│   └───README.md
-├───eda
-│   └───eda.py
+│   ├───baseline-decisiontree
+│   ├───eda
+│   ├───model-cncp
+│   ├───model-ghazaleh
+│   ├───model-mcsk
+│   ├───model-mrt
+│   └───preprocessing
+├───model-training*
+├───model-validation*
 ├───models
-├───notebooks
-├───README.md
+└───visualization*
 ```
 
-- **data**: Contains raw and processed datasets
+### Contents of each folder
+
+- **assets**: Figures and plots used within the repo
+- **data**:
   - **eda**: EDA pipeline outputs, including a report .txt file and plots
-  - **preprocessed**: preprocessed datasets
+  - **preprocessed**: preprocessed datasets versioned using a timestamp
   - **raw**: source raw data
-- **docs**: figures and tool files
- - **figures**: documentation figures and plots
-- **eda**: EDA pipeline
-- **models**: Contains files for model training and testing, as well as the finalized model
-- **notebooks**: pre-implemented pipelines
+- **data-preprocessing**: data pre-processing pipeline component
+- **eda**: EDA functions
+- **experiments**: notebooks corresponding to experimental code
+  - **model-\***: contributor's model training experiments
+- **model-training**: files for model training, meant to be managed through config.yml
+- **model-validation**: files for model testing, e.g., scoring functions and plots
+- **models**: pickled trained models and their metadata versioned using a timestamp
 - **README.md**: This file
 
 ## **How to use this repo**
