@@ -203,7 +203,14 @@ Using the `mutual-info-classif` method implemented in scikit-learn, a feature se
 </div><br />
 
 ### **g. Dashboard for model showcase**
-To showcase the predictive power of our model, we developed an interactive web dashboard using Streamlit. This user-friendly interface allows individuals to input their own demographic and lifestyle information, such as age, weight, diet, and physical activity. Upon submission, the dashboard uses our trained LightGBM model to provide an instant obesity risk classification. This turns the model from a "black box" into an interpretable tool, offering actionable, data-driven insights for health management.
+To showcase the predictive power of our model, we developed an interactive web dashboard using Streamlit (see [Fig 5](#fig5)). This user-friendly interface allows individuals to input their own demographic and lifestyle information, such as age, weight, diet, and physical activity. Upon submission, the dashboard uses our trained LightGBM model to provide an instant obesity risk classification. This turns the model from a "black box" into an interpretable tool, offering actionable, data-driven insights for health management.
+
+<div align="center">
+  <img src="docs/figures/fig5-dashboard.png" alt="Fig 5. Interactive web dashboard to predict obesity risk using non-invasive information." style="width:60%;height:60%">
+  <div style="text-align:justify; max-width:600px; margin:auto;">
+    <b>Fig 5.</b> Fig 5. Interactive web dashboard to predict obesity risk using non-invasive information about the lifestyle and health status of a given individual.
+  </div>
+</div><br />
 
 ## **Key Findings**
 ### About the dataset:
@@ -214,16 +221,8 @@ To showcase the predictive power of our model, we developed an interactive web d
 ### About model training
 - It was overfitting  
 
-
-## **Videos**
-* [Maria Rossano]()  
-* [Reshma Rajendran]()
-* [Ghazaleh Ahmadzadeh]()  
-* [Melanie Cheung See Kit]()
-* [Cristian Nicolas Cordova Puglianini]() 
-
 ## **Future work**
-- As it was discussed in the [Introduction](#dataset-quality), to prevent overfitting, the dataset could be diversified by integrating examples from other datasets or replacing the synthetic data portion by data generated using GenAI means
+- As it was discussed in the [Introduction](#dataset-quality), to prevent overfitting, the dataset could be diversified (statistically speaking) by integrating examples from other datasets or replacing the synthetic data portion by data generated using GenAI means instead of SMOTE
 - Integrate our solution with Electronic Medical Records systems for real-time insights and predictions
 - Develop a patient facing app that could allow users to track their obesity risk and provide them with personalized lifestyle recommendations
 
