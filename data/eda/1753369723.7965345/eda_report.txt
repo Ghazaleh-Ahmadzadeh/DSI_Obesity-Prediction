@@ -1,0 +1,52 @@
+EDA started at 2025-07-24 11:08:43
+Data loaded from ./data/raw/ObesityDataSet_raw_and_data_sinthetic.csv with shape (2111, 17)
+
+Data overview:
+               Age       Height       Weight         FCVC          NCP         CH2O          FAF          TUE
+count  2111.000000  2111.000000  2111.000000  2111.000000  2111.000000  2111.000000  2111.000000  2111.000000
+mean     24.312600     1.701677    86.586058     2.419043     2.685628     2.008011     1.010298     0.657866
+std       6.345968     0.093305    26.191172     0.533927     0.778039     0.612953     0.850592     0.608927
+min      14.000000     1.450000    39.000000     1.000000     1.000000     1.000000     0.000000     0.000000
+25%      19.947192     1.630000    65.473343     2.000000     2.658738     1.584812     0.124505     0.000000
+50%      22.777890     1.700499    83.000000     2.385502     3.000000     2.000000     1.000000     0.625350
+75%      26.000000     1.768464   107.430682     3.000000     3.000000     2.477420     1.666678     1.000000
+max      61.000000     1.980000   173.000000     3.000000     4.000000     3.000000     3.000000     2.000000
+Data types in the dataset:
+Gender                             object
+Age                               float64
+Height                            float64
+Weight                            float64
+family_history_with_overweight     object
+FAVC                               object
+FCVC                              float64
+NCP                               float64
+CAEC                               object
+SMOKE                              object
+CH2O                              float64
+SCC                                object
+FAF                               float64
+TUE                               float64
+CALC                               object
+MTRANS                             object
+NObeyesdad                         object
+
+Features in the dataset:
+['Gender', 'Age', 'Height', 'Weight', 'family_history_with_overweight', 'FAVC', 'FCVC', 'NCP', 'CAEC', 'SMOKE', 'CH2O', 'SCC', 'FAF', 'TUE', 'CALC', 'MTRANS', 'NObeyesdad']
+Categorical features:
+['Gender', 'family_history_with_overweight', 'FAVC', 'CAEC', 'SMOKE', 'SCC', 'CALC', 'MTRANS', 'NObeyesdad']
+
+Numerical features:
+['Age', 'Height', 'Weight', 'FCVC', 'NCP', 'CH2O', 'FAF', 'TUE']
+
+Unique values for categorical features:
+Feature: Gender                         no.: 2     values: ['Female' 'Male']
+Feature: family_history_with_overweight no.: 2     values: ['yes' 'no']
+Feature: FAVC                           no.: 2     values: ['no' 'yes']
+Feature: CAEC                           no.: 4     values: ['Sometimes' 'Frequently' 'Always' 'no']
+Feature: SMOKE                          no.: 2     values: ['no' 'yes']
+Feature: SCC                            no.: 2     values: ['no' 'yes']
+Feature: CALC                           no.: 4     values: ['no' 'Sometimes' 'Frequently' 'Always']
+Feature: MTRANS                         no.: 5     values: ['Public_Transportation' 'Walking' 'Automobile' 'Motorbike' 'Bike']
+Feature: NObeyesdad                     no.: 7     values: ['Normal_Weight' 'Overweight_Level_I' 'Overweight_Level_II'
+ 'Obesity_Type_I' 'Insufficient_Weight' 'Obesity_Type_II'
+ 'Obesity_Type_III']
