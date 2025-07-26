@@ -20,7 +20,7 @@ This project focuses on an in-depth analysis of the “Estimation of Obesity Lev
 
 * Maria Rossano ([rossanot](https://github.com/rossanot))  
 * Reshma Rajendran ([EzhavaReshma](https://github.com/EzhavaReshma))
-* Ghazaleh Ahmadzadeh ([Ghazaleh-Ahmadzadeh](https://github.com/Ghazaleh-Ahmadzadeh))  
+* Ghazaleh Ahmadzadeh ([Ghazaleh-Ahmadzadeh](https://github.com/Ghazaleh-Ahmadzadeh)) ([Video Reflection](https://www.loom.com/share/422a53b13bd443528affa7b9f55d4001?sid=b34f9cbf-1cad-47a5-b596-e6ef53c36267) 
 * Melanie Cheung See Kit ([melcsk](https://github.com/melcsk))
 * Cristian Nicolas Cordova Puglianini ([NicoForce](https://github.com/NicoForce)) ([Video Reflection](https://www.youtube.com/watch?v=79O5144Jpnc))
 
