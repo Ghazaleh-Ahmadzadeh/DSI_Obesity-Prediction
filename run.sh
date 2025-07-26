@@ -41,6 +41,6 @@ if [[ $1 == "pipeline" ]]; then
     python ./eda/eda.py && \
     python ./data-preprocessing/data-preprocessing.py && \
     python ./model-training/model-training.py && \
-    python ./models/model-validation.py && \
+    python ./model-validation/model-validation.py && \
     echo "Finished running the entire pipeline"
 fi
