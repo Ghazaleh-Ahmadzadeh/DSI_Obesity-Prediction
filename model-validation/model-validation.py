@@ -15,8 +15,6 @@ from sklearn.preprocessing import label_binarize
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 import seaborn as sns
-from aquarel import load_theme
-
 import shap
 from itertools import cycle
 
@@ -373,12 +371,4 @@ def main():
 
 # Run the program
 if __name__ == "__main__":
-    # theme = load_theme("scientific")
-    # theme.params['colors']['palette'] = ["#75d6bc", "#b799e8", "#414546", "#fca964"]
-    # theme.params['ticks']['width_minor'] = 0.0
-    # theme = load_theme("boxy_light").set_overrides({
-    # "axes.grid": False
-    # })
-    # theme.apply()
     main()
-    # theme.apply_transforms()
