@@ -301,13 +301,13 @@ It is recommended to create a dedicated environment for this repo,
 conda env create -f environment.yml
 ```
 
-If not installed,
+Each component of the pipeline, for example data processing and model training, can be run using the `run.sh` file found in the project main directory as shown below.
+
+- Run the entire pipeline
 
 ```bash
-pip install -r requirements.txt
+bash run.sh pipeline
 ```
-
-Each component of the pipeline, for example data processing and model training, can be run using the `run.sh` file found in the project main directory as shown below.
 
 - EDA:
 
@@ -336,10 +336,4 @@ bash run.sh model-validation
 
 ```bash
 bash run.sh model-visualization
-```
-
-- Run the entire pipeline
-
-```bash
-bash run.sh pipeline
 ```
