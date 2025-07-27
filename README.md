@@ -192,8 +192,8 @@ During model validation, [Support Vector Classifier](https://scikit-learn.org/st
 | **Train Accuracy** | 0.998 | 0.983 |0.9698 | 0.9781 |
 | **Test Accuracy** | 0.967 | 0.962 | 0.9480 | 0.9527 |
 
-### **f. Feature Analysis**
-Using the `mutual-info-classif` method implemented in scikit-learn, a feature selection was performed. From it, it was determined that some features, , seem to have no impact on the accuracy of the model. Later on, SHAP confirmed these initial obsrvations (see [Figure 4](#fig-4)).
+### **f. Feature analysis**
+Using the `mutual-info-classif` method implemented in scikit-learn, feature selection was performed. From it, it was determined that the features `Weight`, `Height`, `Gender_Male`, `FCVC`, `TUE`, `CH2O`, `NCP`, `FAF`, `CALC`, `family_history_with_overweight`, and `FAVC` have the greatest impact on the mdel predictions. Later on, SHAP confirmed these initial observations (see [Figure 4](#fig-4)). The results obtained from the SHAP analysis suggest that indeed, certain lifestyle features besides height and weight impact the model predictions.
 
 <div id="fig-4" align="center">
   <img src="assets/figures/fig4-shap-summary.png" alt="Fig 4. SHAP analysis of the overall contribution of each feature on the accuracy of the LightGBM model predictions" style="width:60%;height:60%">
@@ -201,6 +201,8 @@ Using the `mutual-info-classif` method implemented in scikit-learn, a feature se
     <b>Fig 4.</b> SHAP analysis of the overall contribution of each feature on the accuracy of the LightGBM model predictions.
   </div>
 </div><br />
+
+During inference, based on the impact of each feature on a given prediction, it is proposed that recommendations are provided to the end user. [Figure 5](fig-5) shows the impact of each feature for a single prediction.
 
 <div id="fig-5" align="center">
   <img src="assets/figures/fig5-shap-explanation.png" alt="Fig 5. SHAP analysis of the contribution of each feature on the accuracy of a particular prediction" style="width:60%;height:60%">
