@@ -26,10 +26,10 @@ This project focuses on an in-depth analysis of the “Estimation of Obesity Lev
 * Cristian Nicolas Cordova Puglianini ([NicoForce](https://github.com/NicoForce)) ([Video Reflection](https://www.youtube.com/watch?v=79O5144Jpnc))
 
 ## **Introduction**
-Obesity is a diagnosis given to individuals with excessive body fat and calculated Body Mass Index (BMI) of greater or equal to 30kg/m<sup>2</sup>. It often becomes a long-term and chronic health condition that is associated with increased risks of other complications, such as type 2 diabetes, heart disease, and cancer. Thus, patients’ treatments have become a heavy burden to the healthcare system. In the Americas region, obesity is a prevalent condition among adults (Fig. 1) and is estimated to cost 985.99 billion USD, mostly in medical expenses ([Okunogbe et al., 2022, e009773](https://pubmed.ncbi.nlm.nih.gov/36130777/)). 
+Obesity is a diagnosis given to individuals with excessive body fat and calculated Body Mass Index (BMI) of greater or equal to 30kg/m<sup>2</sup>. It often becomes a long-term and chronic health condition that is associated with increased risks of other complications, such as type 2 diabetes, heart disease, and cancer. Thus, patients’ treatments have become a heavy burden to the healthcare system. In the Americas region, obesity is a prevalent condition among adults ([Fig 1](#fig-1)) and is estimated to cost 985.99 billion USD, mostly in medical expenses ([Okunogbe et al., 2022, e009773](https://pubmed.ncbi.nlm.nih.gov/36130777/)). 
 
 
-<div align="center">
+<div id="fig-1" align="center">
   <img src="assets/figures/fig1-obesity.png" alt="Fig 1. Percentage of Adults with obesity (BMI ≥ 30kg/m²) across selected countries" style="width:60%;">
   <div style="text-align:justify; max-width:600px; margin:auto;">
     <b>Fig 1.</b> Percentage of Adults with obesity (BMI ≥ 30kg/m<sup>2</sup>) across selected countries (Data Tables | World Obesity Federation Global Obesity Observatory, 2025).
@@ -74,10 +74,10 @@ Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obe
 | CALC | Categorical | How often do you drink alcohol?|
 | MTRANS | Categorical | Which transportation do you usually use? |
 
-From exploratory data analysis, it was found that the target classes are not heavily imbalanced (see [Figure 2](#fig2)). As a result, no bias is expected from this component of the data.
+From exploratory data analysis, it was found that the target classes are not heavily imbalanced (see [Figure 2](#fig-2)). As a result, no bias is expected from this component of the data.
 
 
-<div align="center">
+<div id="fig-2" align="center">
   <img src="assets/figures/fig2-target-classes.png" alt="Fig 2. Distribution of classes of the target." style="width:60%;height:60%">
   <div style="text-align:justify; max-width:600px; margin:auto;">
     <b>Fig 2.</b> Distribution of classes of the target.
@@ -85,9 +85,9 @@ From exploratory data analysis, it was found that the target classes are not hea
 </div><br />
 
 
-The linear correlation between the various numerical features in the dataset was evaluated, showing no strong dependency between features (see [Figure 3](#fig3)). 
+The linear correlation between the various numerical features in the dataset was evaluated, showing no strong dependency between features (see [Figure 3](#fig-3)). 
 
-<div align="center">
+<div id="fig-3" align="center">
   <img src="assets/figures/fig3-corr.png" alt="Fig 3. Linear correlation between numerical features" style="width:60%;height:60%">
   <div style="text-align:justify; max-width:600px; margin:auto;">
     <b>Fig 3.</b> Linear correlation between numerical features.
@@ -193,38 +193,60 @@ During model validation, [Support Vector Classifier](https://scikit-learn.org/st
 | **Test Accuracy** | 0.967 | 0.962 | 0.9480 | 0.9527 |
 
 ### **f. Feature Analysis**
-Using the `mutual-info-classif` method implemented in scikit-learn, a feature selection was performed. From it, it was determined that some features, , seem to have no impact on the accuracy of the model. Later on, SHAP confirmed these initial obsrvations (see [Figure 4](#figure4)).
+Using the `mutual-info-classif` method implemented in scikit-learn, a feature selection was performed. From it, it was determined that some features, , seem to have no impact on the accuracy of the model. Later on, SHAP confirmed these initial obsrvations (see [Figure 4](#fig-4)).
 
-<div align="center">
-  <img src="assets/figures/fig4-shap.png" alt="Fig 4. SHAP analysis of the overall contribution of each feature on the accuracy of the LightGBM model" style="width:60%;height:60%">
+<div id="fig-4" align="center">
+  <img src="assets/figures/fig4-shap-summary.png" alt="Fig 4. SHAP analysis of the overall contribution of each feature on the accuracy of the LightGBM model predictions" style="width:60%;height:60%">
   <div style="text-align:justify; max-width:600px; margin:auto;">
-    <b>Fig 4.</b> SHAP analysis of the overall contribution of each feature on the accuracy of the LightGBM model.
+    <b>Fig 4.</b> SHAP analysis of the overall contribution of each feature on the accuracy of the LightGBM model predictions.
+  </div>
+</div><br />
+
+<div id="fig-5" align="center">
+  <img src="assets/figures/fig5-shap-explanation.png" alt="Fig 5. SHAP analysis of the contribution of each feature on the accuracy of a particular prediction" style="width:60%;height:60%">
+  <div style="text-align:justify; max-width:600px; margin:auto;">
+    <b>Fig 5.</b> SHAP analysis of the overall contribution of each feature on the accuracy of the LightGBM model.
   </div>
 </div><br />
 
 ### **g. Dashboard for model showcase**
-To showcase the predictive power of our model, we developed an interactive web dashboard using Streamlit (see [Fig 5](#fig5)). This user-friendly interface allows individuals to input their own demographic and lifestyle information, such as age, weight, diet, and physical activity. Upon submission, the dashboard uses our trained LightGBM model to provide an instant obesity risk classification. This turns the model from a "black box" into an interpretable tool, offering actionable, data-driven insights for health management.
+To showcase the predictive power of our model, we developed an interactive web dashboard using Streamlit (see [Fig 6](#fig-6)). This user-friendly interface allows individuals to input their own demographic and lifestyle information, such as age, weight, diet, and physical activity. Upon submission, the dashboard uses our trained LightGBM model to provide an instant obesity risk classification. This turns the model from a "black box" into an interpretable tool, offering actionable, data-driven insights for health management.
 
-<div align="center">
-  <img src="assets/figures/fig5-dashboard.gif" alt="Fig 5. Interactive web dashboard to predict obesity risk using non-invasive information." style="width:60%;height:60%">
+<div id="fig-6" align="center">
+  <img src="assets/figures/fig6-dashboard.gif" alt="Fig 6. Interactive web dashboard to predict obesity risk using non-invasive information." style="width:60%;height:60%">
   <div style="text-align:justify; max-width:600px; margin:auto;">
-    <b>Fig 5.</b> Interactive web dashboard to predict obesity risk using non-invasive information about the lifestyle and health status of a given individual. (Animated demo.)
+    <b>Fig 6</b> Interactive web dashboard to predict obesity risk using non-invasive information about the lifestyle and health status of a given individual. (Animated demo.)
   </div>
 </div><br />
 
-## **Key Findings**
-### About the dataset:
+## **Key Findings and Takeaways**
+### About the dataset
 - A large portion of the dataset was synthesized 
 - No outliers were found
 - Most of the numerical features show a Gaussian distribution
 - Target classes are not significantly imbalanced
+- The frequencies of the classes in the categorical features are considerably well distributed
+> [!CAUTION]
+> 
+> Training on such an homogeneous dataset might work well during experimenting but not during production, e.g., results obtained here might not necessarilly reflect the performance of the model on unseen data
+
 ### About model training
-- It was overfitting  
+- Based on the performance results obtained for each one of the trained models it was concluded that the model is (moderately) overfitting. The performance of the model on the training set is higher than that on the test set (see [Table 3](#table-3-baseline-model-experimental-details) and [Table 4](#table-4-model-validation-experimental-details)).
+- As an (unfruitful) attempt to mitigate overfitting during training dfferent strategies were pursued:
+  - Feature selection (using Tree-based methods,  mutual-info-classif, and SHAP)
+  - L1 and L2 regularization (as implemented in LightGBM)
+  - Cross-validation
+  - Post-pruning
+
+### About the implementation
+- A web app designed to consume the model and make actionable recommendations to the en user is presented here and discussed in the [Methodology](#g-dashboard-for-model-showcase) section
+- The pipeline generated here is fully reproduceable and the models retrainable which would ease the process of including new more diverse data
 
 ## **Future work**
 - As it was discussed in the [Introduction](#dataset-quality), to prevent overfitting, the dataset could be diversified (statistically speaking) by integrating examples from other datasets or replacing the synthetic data portion by data generated using GenAI means instead of SMOTE
 - Integrate our solution with Electronic Medical Records systems for real-time insights and predictions
 - Develop a patient facing app that could allow users to track their obesity risk and provide them with personalized lifestyle recommendations
+- Implement a more robust model tracking strategy other than model cards and saving metadata of the trained model, e.g., mlflow
 
 
 ## **Folder Structure**
